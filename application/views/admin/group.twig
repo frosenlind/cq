@@ -32,7 +32,10 @@
             <ul class="list-group">
                 {% for resource in resources %}
                     <li class="list-group-item">
-                        <span class="badge">Ta bort</span>
+                        <a class="label label-danger">C</a>
+                        <a class="label label-success">R</a>
+                        <a class="label label-danger">U</a>
+                        <a class="label label-danger">D</a>
                         {{ resource.name|capitalize }}
                     </li>
                 {% endfor %}
