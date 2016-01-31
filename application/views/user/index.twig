@@ -1,0 +1,32 @@
+{% extends "templates/layout.twig" %}
+
+
+{% block mainContent %}
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Dina uppgifter i matrikeln</h2>
+            <p>Användarnmn, namn, adress mm.</p>
+        </div>
+        <div class="col-md-6">
+            <h2>Inloggningsuppgifter</h2>
+            <p>
+                Användarnamn: {{ activeUser.username|capitalize  }}<br />
+                E-postadress: {{ activeUser.email }}<br />
+            </p>
+            <hr>
+
+            <form action="{{ siteUrl }}mypage" method="post">
+                {{ validation_errors|raw }}
+                <div class="form-group">
+                    <label for="pass">Nytt lösenord</label>
+                    <input type="password" name="pass" class="form-control" id="pass" placeholder="Nytt lösenord">
+                </div>
+                <div class="form-group">
+                    <label for="pass2">Repetera nytt lösenord</label>
+                    <input type="password" name="pass2" class="form-control" id="pass2" placeholder="Repetera nytt lösenord">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" />
+            </form>
+        </div>
+    </div>
+{% endblock %}

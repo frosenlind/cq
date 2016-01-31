@@ -1,0 +1,38 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-6">
+            <h2>Grupper</h2>
+
+            <div class="list-group">
+                {% for group in groups %}
+                    <a href="{{ siteUrl }}admin/group/{{ group.id }}" class="list-group-item"><strong>{{ group.name|capitalize }}</strong> - {{ group.description|capitalize }}</a>
+                {% endfor %}
+
+            </div>
+
+            <p>{{ dump(groups) }}</p>
+        </div>
+        <div class="col-md-6">
+            <h2>Skapa grupp</h2>
+            <form action="{{ siteUrl }}admin/groups" method="post">
+                {{ validation_errors|raw }}
+                <div class="form-group">
+                    <label for="pass">Namn</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Namn på gruppen">
+                </div>
+                <div class="form-group">
+                    <label for="pass">Beskrivning</label>
+                    <input type="text" name="description" class="form-control" id="description" placeholder="Beskrivning på gruppen">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" />
+            </form>
+        </div>
+    </div>
+
+{% endblock mainContent %}

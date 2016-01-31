@@ -1,0 +1,7 @@
+{
+  "require": {
+	"codeigniter/framework": "3.0.3",
+    "twbs/bootstrap": "^3.3",
+    "twig/twig": "~1.0"
+  }
+}

@@ -1,0 +1,34 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-6">
+            <h2>Resurser</h2>
+
+            <ul class="list-group">
+                {% for resource in resources %}
+                    <li class="list-group-item">
+                        <span class="badge">Ta bort</span>
+                        {{ resource.name|capitalize }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>Skapa resurs</h2>
+            <form action="{{ siteUrl }}superadmin/resources" method="post">
+                {{ validation_errors|raw }}
+                <div class="form-group">
+                    <label for="pass">Namn</label>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Namn på resursen (ex. månadsbrev)">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" />
+            </form>
+        </div>
+    </div>
+
+{% endblock mainContent %}
