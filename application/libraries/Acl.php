@@ -15,16 +15,5 @@ class Acl {
 
     }
 
-    public function getResourcesForGroup($group){
 
-        $CI =& get_instance();
-
-        $query = $CI->db->select('*')
-                ->from('resources AS re')
-                ->join('resources_groups AS rg', 'rg.resourceid = re.id', 'left')
-                //->where('rg.groupid', $group->getId())
-                ->get();
-
-        return $query->result();
-    }
 }

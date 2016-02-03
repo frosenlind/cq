@@ -23,7 +23,7 @@
                 {% endfor %}
             </div>
 
-            <p>{{ dump(resources) }}</p>
+            <p>{{ dump(group) }}</p>
 
         </div>
         <div class="col-md-6">
@@ -32,11 +32,23 @@
             <ul class="list-group">
                 {% for resource in resources %}
                     <li class="list-group-item">
-                        <a class="label label-danger">C</a>
-                        <a class="label label-success">R</a>
-                        <a class="label label-danger">U</a>
-                        <a class="label label-danger">D</a>
-                        {{ resource.name|capitalize }}
+                        <form action="{{ siteUrl }}admin/group/{{ group.id }}" method="post">
+                            <a class="label {% if resource.crudc %}label-success {% else %} label-danger{% endif %}">C</a>
+                            <input type="checkbox" name="crudc" {% if resource.crudc %} checked {% endif %} />
+
+                            <a class="label {% if resource.crudr %}label-success {% else %} label-danger{% endif %}">R</a>
+                            <input type="checkbox" name="crudr" {% if resource.crudr %} checked {% endif %} />
+
+                            <a class="label {% if resource.crudu %}label-success {% else %} label-danger{% endif %}">U</a>
+                            <input type="checkbox" name="crudu" {% if resource.crudu %} checked {% endif %} />
+
+                            <a class="label {% if resource.crudd %}label-success {% else %} label-danger{% endif %}">D</a>
+                            <input type="checkbox" name="crudd" {% if resource.crudd %} checked {% endif %} />
+
+                            <input type="hidden" name="resourceid" value="{{ resource.id }}">
+                            <input type="submit" value="Spara" class="btn btn-default"/>
+                            {{ resource.name|capitalize }}
+                        </form>
                     </li>
                 {% endfor %}
             </ul>

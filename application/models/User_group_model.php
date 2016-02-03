@@ -6,6 +6,8 @@
  * Time: 20:26
  */
 
+
+//ska inte användas, 2016-02-02
 class User_group_model extends CI_Model
 {
 

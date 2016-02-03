@@ -47,18 +47,33 @@ class Admin extends MY_Controller{
         }
     }
 
-    public function group($groupId){
+    public function group($groupId = NULl){
         $this->load->model('group_model');
-        $this->load->model('user_group_model');
-        //$this->load->model('resources_model');
+        $this->load->library('form_validation');
         $this->load->library('acl');
+
+        $this->form_validation->set_rules('resourceid', 'resourceid', 'required');
+        if ($this->form_validation->run() !== FALSE)
+        {
+            $obj = new stdClass();
+            $obj->c = $obj->r = $obj->u = $obj->d = 0;
+
+            if($this->input->post('crudc') == 'on'){$obj->c = 1;}
+            if($this->input->post('crudr') == 'on'){$obj->r = 1;}
+            if($this->input->post('crudu') == 'on'){$obj->u = 1;}
+            if($this->input->post('crudd') == 'on'){$obj->d = 1;}
+            $obj->resourceid = $this->input->post('resourceid');
+            $obj->groupid = $groupId;
+
+            $this->group_model->editCRUD($obj);
+        }
 
         $data['group'] = $this->group_model->get($groupId);
         $data['pageHeader'] = 'Administrera grupp: '.$data['group']->getName();
 
-        $data['users'] = $this->user_group_model->getUsers($data['group']);
+        $data['users'] = $this->group_model->getUsers($data['group']);
         //$data['resources'] = $this->resources_model->getAll();
-        $data['resources'] = $this->acl->getResourcesForGroup($data['group']);
+        $data['resources'] = $this->group_model->getResources($data['group']);
 
         $this->twig->display('admin/group', $data);
     }

@@ -19,6 +19,7 @@ class Superadmin extends MY_Controller{
         //Set rules
         $this->form_validation->set_error_delimiters('<p class="alert alert-danger">', '</p>');
         $this->form_validation->set_rules('name', 'Namn', 'required|is_unique[resources.name]');
+        $this->form_validation->set_rules('description', 'Beskrivning', 'required');
         $this->form_validation->set_message('required', 'Fältet "%s" är obligatostiskt!');
         $this->form_validation->set_message('is_unique', 'Fältet "%s" måste vara unikt!');
 
@@ -33,6 +34,7 @@ class Superadmin extends MY_Controller{
 
             $arg = new stdClass();
             $arg->name = $this->input->post('name');
+            $arg->description = $this->input->post('description');
             $newResource = new entities\Resource($arg);
 
             $this->resources_model->save($newResource);

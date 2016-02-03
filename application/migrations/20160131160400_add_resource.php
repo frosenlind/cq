@@ -23,6 +23,10 @@ class Migration_Add_resource extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ),
+            'description' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ),
             'created' => array(
                 'type' => 'INT',
                 'constraint' => 11,
@@ -34,6 +38,7 @@ class Migration_Add_resource extends CI_Migration {
 
         $data = array(
             'name' => 'resources',
+            'description' => 'Resurser',
             'created' => time()
         );
 

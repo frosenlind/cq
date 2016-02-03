@@ -95,4 +95,79 @@ class Group_model extends CI_Model
 
     }
 
+    public function getUsers($objGroup){
+        $this->load->model('user_model');
+        $users = array();
+        $i = 0;
+
+        try {
+            $query = $this->db->where('groupid', $objGroup->getId())->get('users_groups');
+            if($query->num_rows() == 0){throw new Exception('The group did not have any users'); }
+
+            //CI gives us an array of objects
+            $arrUsersGroups = $query->result();
+
+            //lets make them group objects
+            foreach($arrUsersGroups as $arrUserGroup){
+                $users[$i] = $this->user_model->get($arrUserGroup->userid);
+                $i++;
+            }
+            return $users;
+        }catch(Exception $err){
+            log_message('info', 'User_group_model::getUsers - '.$err->getMessage());
+            return $users;
+        }
+
+    }
+
+    public function getResources($group){
+        $i = 0;
+        $return_array = array();
+
+        $query = $this->db->get('resources');
+        $resource_array = $query->result_array();
+
+        foreach($resource_array as $resource){
+
+            $obj = new stdClass();
+            $obj->id = $resource['id'];
+            $obj->name = $resource['name'];
+            $obj->groupid = $group->getId();
+            $obj->crudc = '0';
+            $obj->crudr = '0';
+            $obj->crudu = '0';
+            $obj->crudd = '0';
+
+            $query2 = $this->db->select('*')->from('resources_groups as rg')
+                ->where('rg.groupid', $group->getId())
+                ->where('rg.resourceid', $resource['id'])->get();
+
+            if($query2->num_rows() == 1){
+                $obj->crudc = substr($query2->row()->crud,0,1);
+                $obj->crudr = substr($query2->row()->crud,1,1);
+                $obj->crudu = substr($query2->row()->crud,2,1);
+                $obj->crudd = substr($query2->row()->crud,3,1);
+            }
+            $return_array[$i] = $obj;
+            $i++;
+        }
+        return $return_array;
+    }
+
+    public function editCRUD($obj){
+        $crud = $obj->c.$obj->r.$obj->u.$obj->d;
+        $this->db->set('crud', $crud);
+        if($this->db->where('groupid', $obj->groupid)->where('resourceid', $obj->resourceid)->get('resources_groups')->num_rows() == 1) {
+            $this->db->where('groupid', $obj->groupid)->where('resourceid', $obj->resourceid);
+            $this->db->update('resources_groups');
+        }else{
+            $this->db->set('groupid', $obj->groupid);
+            $this->db->set('resourceid', $obj->resourceid);
+            $this->db->set('created', time());
+            $this->db->insert('resources_groups');
+        }
+
+
+
+    }
 }

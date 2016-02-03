@@ -13,6 +13,7 @@ class Resource
 {
     protected $id;
     protected $name;
+    protected $description;
 
     /**
      * Resource constructor.
@@ -22,6 +23,7 @@ class Resource
         $this->id = 0;
         if(isset($arrParameters->id)){$this->id = $arrParameters->id;}
         $this->name = $arrParameters->name;
+        $this->description = $arrParameters->description;
     }
 
     /**
@@ -47,6 +49,23 @@ class Resource
     {
         $this->name = $name;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
 
 
 

@@ -41,6 +41,7 @@ class Resources_model extends CI_Model{
             if ($resource->getId() == 0) {
                 //set all inputs
                 $this->db->set('name', $resource->getName());
+                $this->db->set('description', $resource->getDescription());
                 $this->db->set('created', time());
                 $this->db->insert('resources');
 
@@ -62,6 +63,5 @@ class Resources_model extends CI_Model{
         }catch (Exception $err){
             die($err-getMessage());
         }
-
     }
 }
