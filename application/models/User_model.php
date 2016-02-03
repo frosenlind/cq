@@ -45,5 +45,20 @@ class User_model extends CI_Model
         log_message('info', 'User_model::save - You updated the user '.$user->getId().' with '.$affectedRows.' affected rows.');
     }
 
+    public function search($string){
+        $query = $this->db->select('*')->from('users')
+                ->like('username', $string)
+                ->or_like('email', $string)->get();
+        $rows = $query->result();
+
+        $return = array();
+        $i = 0;
+        foreach($rows as $row){
+            $return[$i] = $this->get($row->id);
+            $i++;
+        }
+
+        return $return;
+    }
 
 }

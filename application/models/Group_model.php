@@ -148,7 +148,15 @@ class Group_model extends CI_Model
                 $obj->crudu = substr($query2->row()->crud,2,1);
                 $obj->crudd = substr($query2->row()->crud,3,1);
             }
-            $return_array[$i] = $obj;
+
+            //Hårdkodat - groupId = 1 = Superadmin. Visa bara resurser om det är superadmin
+            if($obj->id == 1){
+                if($obj->groupid == 1){
+                    $return_array[$i] = $obj;
+                }
+            }else {
+                $return_array[$i] = $obj;
+            }
             $i++;
         }
         return $return_array;
@@ -166,8 +174,17 @@ class Group_model extends CI_Model
             $this->db->set('created', time());
             $this->db->insert('resources_groups');
         }
+    }
 
-
-
+    public function addUser($group, $user){
+        $query = $this->db->where('userid', $user->getId())->where('groupid', $group->getId())->get('users_groups');
+        if($query->num_rows() == 0) {
+            $data = array(
+                'userid' => $user->getId(),
+                'groupid' => $group->getId(),
+                'created' => time()
+            );
+            $this->db->insert('users_groups', $data);
+        }
     }
 }

@@ -52,20 +52,39 @@ class Admin extends MY_Controller{
         $this->load->library('form_validation');
         $this->load->library('acl');
 
-        $this->form_validation->set_rules('resourceid', 'resourceid', 'required');
-        if ($this->form_validation->run() !== FALSE)
-        {
-            $obj = new stdClass();
-            $obj->c = $obj->r = $obj->u = $obj->d = 0;
+        $this->form_validation->set_error_delimiters('<p class="alert alert-danger">', '</p>');
+        $this->form_validation->set_message('required', 'Fältet "%s" är obligatostiskt!');
 
-            if($this->input->post('crudc') == 'on'){$obj->c = 1;}
-            if($this->input->post('crudr') == 'on'){$obj->r = 1;}
-            if($this->input->post('crudu') == 'on'){$obj->u = 1;}
-            if($this->input->post('crudd') == 'on'){$obj->d = 1;}
-            $obj->resourceid = $this->input->post('resourceid');
-            $obj->groupid = $groupId;
+        if($this->input->post('type') == 'resources'){
+            $this->form_validation->set_rules('resourceid', 'resourceid', 'required');
+            if ($this->form_validation->run() !== FALSE)
+            {
+                $obj = new stdClass();
+                $obj->c = $obj->r = $obj->u = $obj->d = 0;
 
-            $this->group_model->editCRUD($obj);
+                if($this->input->post('crudc') == 'on'){$obj->c = 1;}
+                if($this->input->post('crudr') == 'on'){$obj->r = 1;}
+                if($this->input->post('crudu') == 'on'){$obj->u = 1;}
+                if($this->input->post('crudd') == 'on'){$obj->d = 1;}
+                $obj->resourceid = $this->input->post('resourceid');
+                $obj->groupid = $groupId;
+
+                $this->group_model->editCRUD($obj);
+            }
+        }elseif($this->input->post('type') == 'search'){
+            $this->form_validation->set_rules('input', 'Sökruta', 'required');
+            if ($this->form_validation->run() !== FALSE)
+            {
+                $data['search'] = $this->user_model->search($this->input->post('input'));
+
+            }
+        }elseif($this->input->post('type') == 'addUser'){
+            $users = $this->input->post('users');
+            foreach($users as $user ){
+                $objUser = $this->user_model->get($user);
+                $objGroup = $this->group_model->get($groupId);
+                $this->group_model->addUser($objGroup, $objUser);
+            }
         }
 
         $data['group'] = $this->group_model->get($groupId);
