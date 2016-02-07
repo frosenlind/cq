@@ -8,12 +8,29 @@
 
 class Admin extends MY_Controller{
 
+
+    /**
+     * Admin constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->acl->accessRedirect($this->activeUser, 'adminpanel', 'R');
+
+        //sätter globals för adminmenyn
+        if($this->acl->access($this->activeUser, 'groups', 'R')){
+            $this->twig->addGlobal('adminMenuGroups', true);
+        }
+
+    }
+
     public function index(){
         $data['pageHeader'] = 'Administration';
         $this->twig->display('admin/index', $data);
     }
 
     public function groups(){
+        $this->acl->accessRedirect($this->activeUser, 'groups', 'R');
         //load CI Resurces
         $this->load->library('form_validation');
         $this->load->model('group_model');
@@ -60,12 +77,12 @@ class Admin extends MY_Controller{
             if ($this->form_validation->run() !== FALSE)
             {
                 $obj = new stdClass();
-                $obj->c = $obj->r = $obj->u = $obj->d = 0;
+                $obj->crud = '';
 
-                if($this->input->post('crudc') == 'on'){$obj->c = 1;}
-                if($this->input->post('crudr') == 'on'){$obj->r = 1;}
-                if($this->input->post('crudu') == 'on'){$obj->u = 1;}
-                if($this->input->post('crudd') == 'on'){$obj->d = 1;}
+                if($this->input->post('crudc') == 'on'){$obj->crud = $obj->crud.'C';}
+                if($this->input->post('crudr') == 'on'){$obj->crud = $obj->crud.'R';}
+                if($this->input->post('crudu') == 'on'){$obj->crud = $obj->crud.'U';}
+                if($this->input->post('crudd') == 'on'){$obj->crud = $obj->crud.'D';}
                 $obj->resourceid = $this->input->post('resourceid');
                 $obj->groupid = $groupId;
 
@@ -91,7 +108,6 @@ class Admin extends MY_Controller{
         $data['pageHeader'] = 'Administrera grupp: '.$data['group']->getName();
 
         $data['users'] = $this->group_model->getUsers($data['group']);
-        //$data['resources'] = $this->resources_model->getAll();
         $data['resources'] = $this->group_model->getResources($data['group']);
 
         $this->twig->display('admin/group', $data);

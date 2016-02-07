@@ -43,15 +43,16 @@ class Migration_Add_resource_group extends CI_Migration {
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('resources_groups');
+        $time = time();
 
         $data = array(
-            'groupid' => 1,
-            'resourceid' => 1,
-            'crud' => '1111',
-            'created' => time()
+            array('groupid' => 1,'resourceid' => 1,'crud' => 'CRUD','created' => $time),
+            array('groupid' => 1,'resourceid' => 2,'crud' => 'CRUD','created' => $time),
+            array('groupid' => 1,'resourceid' => 3,'crud' => 'CRUD','created' => $time),
+            array('groupid' => 1,'resourceid' => 4,'crud' => 'CRUD','created' => $time)
         );
 
-        $this->db->insert('resources_groups', $data);
+        $this->db->insert_batch('resources_groups', $data);
     }
 
     public function down()

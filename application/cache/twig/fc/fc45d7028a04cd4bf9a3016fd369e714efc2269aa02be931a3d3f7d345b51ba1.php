@@ -10,7 +10,6 @@ class __TwigTemplate_4ce3f472246dc1870f45765e752156a5cc386bbd78413e8870b8014831c
         // line 1
         $this->parent = $this->loadTemplate("templates/outside.twig", "outside.twig", 1);
         $this->blocks = array(
-            'navBar' => array($this, 'block_navBar'),
             'jumbotron' => array($this, 'block_jumbotron'),
             'mainContent' => array($this, 'block_mainContent'),
         );
@@ -27,51 +26,9 @@ class __TwigTemplate_4ce3f472246dc1870f45765e752156a5cc386bbd78413e8870b8014831c
     }
 
     // line 3
-    public function block_navBar($context, array $blocks = array())
-    {
-        // line 4
-        echo "<nav class=\"navbar navbar-default navbar-fixed-top\">
-    <div class=\"container\">
-        <div class=\"navbar-header\">
-            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">
-                <span class=\"sr-only\">Toggle navigation</span>
-                <span class=\"icon-bar\"></span>
-                <span class=\"icon-bar\"></span>
-                <span class=\"icon-bar\"></span>
-            </button>
-            <a class=\"navbar-brand\" href=\"";
-        // line 13
-        echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
-        echo "\">Cordis 4.0</a>
-        </div>
-        <div id=\"navbar\" class=\"navbar-collapse collapse\">
-
-            <form class=\"navbar-form navbar-right\" action=\"";
-        // line 17
-        echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
-        echo "\" method=\"post\">
-                ";
-        // line 18
-        echo (isset($context["validation_errors"]) ? $context["validation_errors"] : null);
-        echo "
-                <div class=\"form-group\">
-                    <input type=\"text\" placeholder=\"E-post\" name=\"email\" class=\"form-control\">
-                </div>
-                <div class=\"form-group\">
-                    <input type=\"password\" placeholder=\"Lösenord\" name=\"password\" class=\"form-control\">
-                </div>
-                <button type=\"submit\" class=\"btn btn-success\">Logga in</button>
-            </form>
-        </div><!--/.navbar-collapse -->
-    </div>
-</nav>
-";
-    }
-
-    // line 32
     public function block_jumbotron($context, array $blocks = array())
     {
-        // line 33
+        // line 4
         echo "    <div class=\"jumbotron\">
         <div class=\"container\">
             <h1>www.CordisQuinta.com 4.0</h1>
@@ -82,10 +39,10 @@ class __TwigTemplate_4ce3f472246dc1870f45765e752156a5cc386bbd78413e8870b8014831c
 ";
     }
 
-    // line 42
+    // line 13
     public function block_mainContent($context, array $blocks = array())
     {
-        // line 43
+        // line 14
         echo "    <div class=\"row\">
         <div class=\"col-md-6\">
             <h2>En tillbakablick</h2>
@@ -117,39 +74,10 @@ class __TwigTemplate_4ce3f472246dc1870f45765e752156a5cc386bbd78413e8870b8014831c
 
     public function getDebugInfo()
     {
-        return array (  89 => 43,  86 => 42,  75 => 33,  72 => 32,  55 => 18,  51 => 17,  44 => 13,  33 => 4,  30 => 3,  11 => 1,);
+        return array (  46 => 14,  43 => 13,  32 => 4,  29 => 3,  11 => 1,);
     }
 }
 /* {% extends "templates/outside.twig" %}*/
-/* */
-/* {% block navBar %}*/
-/* <nav class="navbar navbar-default navbar-fixed-top">*/
-/*     <div class="container">*/
-/*         <div class="navbar-header">*/
-/*             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">*/
-/*                 <span class="sr-only">Toggle navigation</span>*/
-/*                 <span class="icon-bar"></span>*/
-/*                 <span class="icon-bar"></span>*/
-/*                 <span class="icon-bar"></span>*/
-/*             </button>*/
-/*             <a class="navbar-brand" href="{{ baseUrl }}">Cordis 4.0</a>*/
-/*         </div>*/
-/*         <div id="navbar" class="navbar-collapse collapse">*/
-/* */
-/*             <form class="navbar-form navbar-right" action="{{ siteUrl }}" method="post">*/
-/*                 {{ validation_errors|raw }}*/
-/*                 <div class="form-group">*/
-/*                     <input type="text" placeholder="E-post" name="email" class="form-control">*/
-/*                 </div>*/
-/*                 <div class="form-group">*/
-/*                     <input type="password" placeholder="Lösenord" name="password" class="form-control">*/
-/*                 </div>*/
-/*                 <button type="submit" class="btn btn-success">Logga in</button>*/
-/*             </form>*/
-/*         </div><!--/.navbar-collapse -->*/
-/*     </div>*/
-/* </nav>*/
-/* {% endblock %}*/
 /* */
 /* {% block jumbotron %}*/
 /*     <div class="jumbotron">*/

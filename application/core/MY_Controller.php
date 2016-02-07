@@ -18,7 +18,7 @@ class MY_Controller extends CI_Controller
         require_once '/vendor/autoload.php';
 
         //check if logged in, else send to logout
-        $this->my_auth->isAuthorized('','','logout');
+        $this->my_auth->isAuthorized();
 
         //get activeUser
         $this->activeUser = $this->user_model->get($this->session->id);
@@ -28,6 +28,12 @@ class MY_Controller extends CI_Controller
         $this->twig->addGlobal('baseUrl', base_url());
         $this->twig->addGlobal('siteUrl', site_url().'/');
         $this->twig->addGlobal('activeUser', $this->activeUser);
+
+        //add admin link to menu
+        if($this->acl->access($this->activeUser, 'adminpanel', 'R')){
+            $this->twig->addGlobal('isAdmin', true);
+        }
+
     }
 
 }

@@ -19,7 +19,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loger <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li class="disabled"><a href="#">Höga Rådet</a></li>
+                            <li class="disabled"><a href="#">HÃ¶ga RÃ¥det</a></li>
                             <li class="disabled"><a href="#">HRK</a></li>
                             <li role="separator" class="divider"></li>
                             <li class="disabled"><a href="#">Loge 1</a></li>
@@ -31,7 +31,7 @@
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ siteUrl }}admin">Administration</a></li>
+                    {% if isAdmin == 1 %}<li><a href="{{ siteUrl }}admin">Administration</a></li>{% endif %}
                     <li><a href="{{ siteUrl }}mypage">Min Sida</a></li>
                     <li><a href="{{ siteUrl }}logout">Logga ut</a></li>
                 </ul>

@@ -62,18 +62,13 @@ class My_auth
         return;
     }
 
-    public function isAuthorized($controller = NULL, $function = NULL, $redirect = FALSE){
+    public function isAuthorized(){
         //ladda resurser
         $CI =& get_instance();
 
         if($CI->session->userdata('loggedIn') !== 'user'){
-            if($redirect !== false){
-                log_message('info', '401: Someone was not authorized');
-                show_error('Du har inte behörighet att se denna sida.',401);
-                //redirect(site_url($redirect), 'refresh:');
-            }else{
-                return false;
-            }
+            $this->logout();
+            redirect('error/error401', 'refresh');
         }
     }
 

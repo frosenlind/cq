@@ -35,14 +35,17 @@ class Migration_Add_resource extends CI_Migration {
         ));
         $this->dbforge->add_key('id', TRUE);
         $this->dbforge->create_table('resources');
+        $time = time();
 
         $data = array(
-            'name' => 'resources',
-            'description' => 'Resurser',
-            'created' => time()
+            array('name' => 'resources','description' => 'Resurser','created' => $time),
+            array('name' => 'adminpanel','description' => 'Administrationspanelen','created' => $time),
+            array('name' => 'groups','description' => 'Grupper','created' => $time),
+            array('name' => 'groupResources','description' => 'Grupper och rättigheter','created' => $time),
+            array('name' => 'groupUser','description' => 'Grupper och användare','created' => $time)
         );
 
-        $this->db->insert('resources', $data);
+        $this->db->insert_batch('resources', $data);
     }
 
     public function down()

@@ -13,6 +13,7 @@ class __TwigTemplate_176d47843d26bcbdf69104ec2f0f9b2a7934c4658171722d6f955fcc2e6
             'navBar' => array($this, 'block_navBar'),
             'adminMenu' => array($this, 'block_adminMenu'),
             'mainContent' => array($this, 'block_mainContent'),
+            'javaScript' => array($this, 'block_javaScript'),
         );
     }
 
@@ -125,6 +126,11 @@ class __TwigTemplate_176d47843d26bcbdf69104ec2f0f9b2a7934c4658171722d6f955fcc2e6
 
 </script>
 
+";
+        // line 81
+        $this->displayBlock('javaScript', $context, $blocks);
+        // line 82
+        echo "
 </body>
 </html>
 
@@ -156,6 +162,11 @@ class __TwigTemplate_176d47843d26bcbdf69104ec2f0f9b2a7934c4658171722d6f955fcc2e6
         echo "        ";
     }
 
+    // line 81
+    public function block_javaScript($context, array $blocks = array())
+    {
+    }
+
     public function getTemplateName()
     {
         return "templates/admin.twig";
@@ -168,7 +179,7 @@ class __TwigTemplate_176d47843d26bcbdf69104ec2f0f9b2a7934c4658171722d6f955fcc2e6
 
     public function getDebugInfo()
     {
-        return array (  156 => 53,  153 => 52,  149 => 42,  146 => 41,  143 => 40,  138 => 33,  135 => 32,  115 => 69,  110 => 67,  95 => 54,  93 => 52,  82 => 43,  80 => 40,  73 => 35,  71 => 32,  57 => 21,  51 => 18,  45 => 15,  35 => 12,  22 => 1,);
+        return array (  166 => 81,  162 => 53,  159 => 52,  155 => 42,  152 => 41,  149 => 40,  144 => 33,  141 => 32,  133 => 82,  131 => 81,  116 => 69,  111 => 67,  96 => 54,  94 => 52,  83 => 43,  81 => 40,  74 => 35,  72 => 32,  58 => 21,  52 => 18,  46 => 15,  36 => 12,  23 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -250,6 +261,8 @@ class __TwigTemplate_176d47843d26bcbdf69104ec2f0f9b2a7934c4658171722d6f955fcc2e6
 /*     });*/
 /* */
 /* </script>*/
+/* */
+/* {% block javaScript %}{% endblock %}*/
 /* */
 /* </body>*/
 /* </html>*/

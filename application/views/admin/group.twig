@@ -35,13 +35,14 @@
             </div>
             <div class="row">
                 <h2>Användare</h2>
-                <div class="panel panel-default">
+                <ul class="list-group">
                     {% for user in users %}
-                        <div class="panel-body">
-                            {{ user.username|capitalize }}
-                        </div>
+                        <li class="list-group-item">
+                            <button type="button" id="delete" class="btn btn-default" title="Ta bort användare från grupp"><span class="glyphicon glyphicon-remove-circle"></span> Ta bort</button>
+                            {{ user.username|capitalize }} - {{ user.email }}
+                        </li>
                     {% endfor %}
-                </div>
+                </ul>
 
             </div>
         </div>
@@ -68,12 +69,17 @@
                             <input type="hidden" name="resourceid" value="{{ resource.id }}">
                             <input type="hidden" name="type" value="resources">
 
-                            {{ resource.name|capitalize }}
+                            <strong>{{ resource.name|capitalize }}</strong> - {{ resource.description|capitalize }}
                         </form>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-
 {% endblock mainContent %}
+
+{% block javaScript %}
+    <script>
+        {% include 'admin/assets/js/group.js' %}
+    </script>
+{% endblock %}

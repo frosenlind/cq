@@ -132,6 +132,7 @@ class Group_model extends CI_Model
             $obj = new stdClass();
             $obj->id = $resource['id'];
             $obj->name = $resource['name'];
+            $obj->description = $resource['description'];
             $obj->groupid = $group->getId();
             $obj->crudc = '0';
             $obj->crudr = '0';
@@ -143,10 +144,20 @@ class Group_model extends CI_Model
                 ->where('rg.resourceid', $resource['id'])->get();
 
             if($query2->num_rows() == 1){
-                $obj->crudc = substr($query2->row()->crud,0,1);
-                $obj->crudr = substr($query2->row()->crud,1,1);
-                $obj->crudu = substr($query2->row()->crud,2,1);
-                $obj->crudd = substr($query2->row()->crud,3,1);
+                $crud = $query2->row()->crud;
+
+                $strlen = strlen($crud);
+                for($q = 0; $q <= $strlen; $q++){
+                    $str = substr($crud, $q,1);
+
+                    switch ($str){
+                        case 'C': $obj->crudc = 1; break;
+                        case 'R': $obj->crudr = 1; break;
+                        case 'U': $obj->crudu = 1; break;
+                        case 'D': $obj->crudd = 1; break;
+                    }
+
+                }
             }
 
             //Hårdkodat - groupId = 1 = Superadmin. Visa bara resurser om det är superadmin
@@ -163,12 +174,12 @@ class Group_model extends CI_Model
     }
 
     public function editCRUD($obj){
-        $crud = $obj->c.$obj->r.$obj->u.$obj->d;
+        $crud = $obj->crud;
         $this->db->set('crud', $crud);
         if($this->db->where('groupid', $obj->groupid)->where('resourceid', $obj->resourceid)->get('resources_groups')->num_rows() == 1) {
             $this->db->where('groupid', $obj->groupid)->where('resourceid', $obj->resourceid);
-            $this->db->update('resources_groups');
-        }else{
+            if(empty($crud)){$this->db->delete('resources_groups');}else{$this->db->update('resources_groups');}
+        }elseif(!empty($crud)){
             $this->db->set('groupid', $obj->groupid);
             $this->db->set('resourceid', $obj->resourceid);
             $this->db->set('created', time());

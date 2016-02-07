@@ -64,19 +64,15 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
         echo "
             </div>
 
-            <p>";
-        // line 19
-        echo twig_var_dump($this->env, $context, (isset($context["groups"]) ? $context["groups"] : null));
-        echo "</p>
         </div>
         <div class=\"col-md-6\">
             <h2>Skapa grupp</h2>
             <form action=\"";
-        // line 23
+        // line 22
         echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
         echo "admin/groups\" method=\"post\">
                 ";
-        // line 24
+        // line 23
         echo (isset($context["validation_errors"]) ? $context["validation_errors"] : null);
         echo "
                 <div class=\"form-group\">
@@ -107,7 +103,7 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
 
     public function getDebugInfo()
     {
-        return array (  80 => 24,  76 => 23,  69 => 19,  64 => 16,  49 => 14,  45 => 13,  34 => 5,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  76 => 23,  72 => 22,  64 => 16,  49 => 14,  45 => 13,  34 => 5,  31 => 4,  28 => 3,  11 => 1,);
     }
 }
 /* {% extends "templates/admin.twig" %}*/
@@ -128,7 +124,6 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
 /* */
 /*             </div>*/
 /* */
-/*             <p>{{ dump(groups) }}</p>*/
 /*         </div>*/
 /*         <div class="col-md-6">*/
 /*             <h2>Skapa grupp</h2>*/

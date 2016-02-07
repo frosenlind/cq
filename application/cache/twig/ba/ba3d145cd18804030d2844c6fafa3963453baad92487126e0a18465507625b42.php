@@ -29,11 +29,15 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
             <li class=\"disabled\"><a href=\"#\">Medlemmar</a></li>
             <li class=\"disabled\"><a href=\"#\">Nya medlemar</a></li>
             <li class=\"disabled\"><a href=\"#\">Skapa medlem</a></li>
-            <li><a href=\"";
+            ";
         // line 8
-        echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
-        echo "admin/groups\">Grupper</a></li>
-        </ul>
+        if (((isset($context["adminMenuGroups"]) ? $context["adminMenuGroups"] : null) == true)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
+            echo "admin/groups\">Grupper</a></li>";
+        }
+        // line 9
+        echo "        </ul>
         <ul class=\"nav nav-sidebar\">
             <li class=\"disabled\"><a href=\"\">Skapa nyhet</a></li>
             <li class=\"disabled\"><a href=\"\">Redigera nyhet</a></li>
@@ -63,7 +67,7 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 
     public function getDebugInfo()
     {
-        return array (  50 => 21,  34 => 8,  26 => 2,  20 => 1,);
+        return array (  54 => 21,  40 => 9,  34 => 8,  26 => 2,  20 => 1,);
     }
 }
 /* {% block adminMenu %}*/
@@ -73,7 +77,7 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 /*             <li class="disabled"><a href="#">Medlemmar</a></li>*/
 /*             <li class="disabled"><a href="#">Nya medlemar</a></li>*/
 /*             <li class="disabled"><a href="#">Skapa medlem</a></li>*/
-/*             <li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>*/
+/*             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}*/
 /*         </ul>*/
 /*         <ul class="nav nav-sidebar">*/
 /*             <li class="disabled"><a href="">Skapa nyhet</a></li>*/

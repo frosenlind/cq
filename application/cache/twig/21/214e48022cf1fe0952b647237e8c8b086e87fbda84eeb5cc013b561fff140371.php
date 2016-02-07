@@ -46,7 +46,7 @@ class __TwigTemplate_2a0f3e7bc220330ca9173427f4720e4a7a59a5346b22bdb848c3c4c7300
                     <li class=\"dropdown\">
                         <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Loger <span class=\"caret\"></span></a>
                         <ul class=\"dropdown-menu\">
-                            <li class=\"disabled\"><a href=\"#\">Höga Rådet</a></li>
+                            <li class=\"disabled\"><a href=\"#\">HÃ¶ga RÃ¥det</a></li>
                             <li class=\"disabled\"><a href=\"#\">HRK</a></li>
                             <li role=\"separator\" class=\"divider\"></li>
                             <li class=\"disabled\"><a href=\"#\">Loge 1</a></li>
@@ -58,12 +58,15 @@ class __TwigTemplate_2a0f3e7bc220330ca9173427f4720e4a7a59a5346b22bdb848c3c4c7300
                 </ul>
 
                 <ul class=\"nav navbar-nav navbar-right\">
-                    <li><a href=\"";
+                    ";
         // line 34
-        echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
-        echo "admin\">Administration</a></li>
-                    <li><a href=\"";
+        if (((isset($context["isAdmin"]) ? $context["isAdmin"] : null) == 1)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
+            echo "admin\">Administration</a></li>";
+        }
         // line 35
+        echo "                    <li><a href=\"";
         echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
         echo "mypage\">Min Sida</a></li>
                     <li><a href=\"";
@@ -84,7 +87,7 @@ class __TwigTemplate_2a0f3e7bc220330ca9173427f4720e4a7a59a5346b22bdb848c3c4c7300
 
     public function getDebugInfo()
     {
-        return array (  71 => 36,  67 => 35,  63 => 34,  38 => 12,  26 => 2,  20 => 1,);
+        return array (  74 => 36,  69 => 35,  63 => 34,  38 => 12,  26 => 2,  20 => 1,);
     }
 }
 /* {% block navBar %}*/
@@ -108,7 +111,7 @@ class __TwigTemplate_2a0f3e7bc220330ca9173427f4720e4a7a59a5346b22bdb848c3c4c7300
 /*                     <li class="dropdown">*/
 /*                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Loger <span class="caret"></span></a>*/
 /*                         <ul class="dropdown-menu">*/
-/*                             <li class="disabled"><a href="#">Höga Rådet</a></li>*/
+/*                             <li class="disabled"><a href="#">HÃ¶ga RÃ¥det</a></li>*/
 /*                             <li class="disabled"><a href="#">HRK</a></li>*/
 /*                             <li role="separator" class="divider"></li>*/
 /*                             <li class="disabled"><a href="#">Loge 1</a></li>*/
@@ -120,7 +123,7 @@ class __TwigTemplate_2a0f3e7bc220330ca9173427f4720e4a7a59a5346b22bdb848c3c4c7300
 /*                 </ul>*/
 /* */
 /*                 <ul class="nav navbar-nav navbar-right">*/
-/*                     <li><a href="{{ siteUrl }}admin">Administration</a></li>*/
+/*                     {% if isAdmin == 1 %}<li><a href="{{ siteUrl }}admin">Administration</a></li>{% endif %}*/
 /*                     <li><a href="{{ siteUrl }}mypage">Min Sida</a></li>*/
 /*                     <li><a href="{{ siteUrl }}logout">Logga ut</a></li>*/
 /*                 </ul>*/

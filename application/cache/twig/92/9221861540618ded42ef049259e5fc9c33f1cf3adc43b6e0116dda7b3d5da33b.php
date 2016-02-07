@@ -65,22 +65,22 @@ class __TwigTemplate_81227ba16f00f7620fdec8aef99cf94b73815d41ebfd2a42760fb21ea21
 ";
         // line 32
         $this->displayBlock('navBar', $context, $blocks);
-        // line 34
+        // line 35
         echo "
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <!-- Main jumbotron for a primary marketing message or call to action -->
 ";
-        // line 37
-        $this->displayBlock('jumbotron', $context, $blocks);
         // line 38
+        $this->displayBlock('jumbotron', $context, $blocks);
+        // line 39
         echo "
 <div class=\"container\">
     <!-- Put main content here -->
 
     ";
-        // line 42
-        $this->displayBlock('mainContent', $context, $blocks);
         // line 43
+        $this->displayBlock('mainContent', $context, $blocks);
+        // line 44
         echo "
     <!-- END: Put main content here -->
     <hr>
@@ -96,16 +96,16 @@ class __TwigTemplate_81227ba16f00f7620fdec8aef99cf94b73815d41ebfd2a42760fb21ea21
 <!-- Placed at the end of the document so the pages load faster -->
 <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
 <script>window.jQuery || document.write('<script src=\"";
-        // line 57
+        // line 58
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/docs/assets/js/vendor/jquery.min.js\"><\\/script>')</script>
 <script src=\"";
-        // line 58
+        // line 59
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/dist/js/bootstrap.min.js\"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src=\"";
-        // line 60
+        // line 61
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/docs/assets/js/ie10-viewport-bug-workaround.js\"></script>
 </body>
@@ -116,14 +116,17 @@ class __TwigTemplate_81227ba16f00f7620fdec8aef99cf94b73815d41ebfd2a42760fb21ea21
     // line 32
     public function block_navBar($context, array $blocks = array())
     {
+        // line 33
+        echo "    ";
+        $this->loadTemplate("templates/topOutsideNavbar.twig", "templates/outside.twig", 33)->display($context);
     }
 
-    // line 37
+    // line 38
     public function block_jumbotron($context, array $blocks = array())
     {
     }
 
-    // line 42
+    // line 43
     public function block_mainContent($context, array $blocks = array())
     {
         echo " ";
@@ -141,7 +144,7 @@ class __TwigTemplate_81227ba16f00f7620fdec8aef99cf94b73815d41ebfd2a42760fb21ea21
 
     public function getDebugInfo()
     {
-        return array (  127 => 42,  122 => 37,  117 => 32,  109 => 60,  104 => 58,  100 => 57,  84 => 43,  82 => 42,  76 => 38,  74 => 37,  69 => 34,  67 => 32,  53 => 21,  47 => 18,  41 => 15,  35 => 12,  22 => 1,);
+        return array (  130 => 43,  125 => 38,  120 => 33,  117 => 32,  109 => 61,  104 => 59,  100 => 58,  84 => 44,  82 => 43,  76 => 39,  74 => 38,  69 => 35,  67 => 32,  53 => 21,  47 => 18,  41 => 15,  35 => 12,  22 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -176,6 +179,7 @@ class __TwigTemplate_81227ba16f00f7620fdec8aef99cf94b73815d41ebfd2a42760fb21ea21
 /* <body>*/
 /* */
 /* {% block navBar %}*/
+/*     {% include 'templates/topOutsideNavbar.twig' %}*/
 /* {% endblock %}*/
 /* */
 /* <!-- Main jumbotron for a primary marketing message or call to action -->*/
