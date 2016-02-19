@@ -26,9 +26,14 @@ class Acl {
             ->join('resources as RE', 'RE.id = RG.resourceID')
             ->where('RE.name', $strResource)->get();
 
-        if($query->num_rows() == 1){
-            $dbCRUD = $query->row()->crud;
-            if($this->checkCRUD($dbCRUD, $strCRUD)){return true;}
+        if($query->num_rows() > 0){
+            $dbCRUDs = $query->result();
+
+            foreach($dbCRUDs as $dbCRUD) {
+                if ($this->checkCRUD($dbCRUD->crud, $strCRUD)) {
+                    return true;
+                }
+            }
         }
 
         return false;

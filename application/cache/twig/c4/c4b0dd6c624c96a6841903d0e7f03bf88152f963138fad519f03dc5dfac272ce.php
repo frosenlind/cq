@@ -65,26 +65,37 @@ class __TwigTemplate_8cfbc9ca3b1d9df4a60794264c5cb4864cbfaf34dce20f7004bb1c30fd1
 </head>
 
 <body>
+<script type=\"text/javascript\">
+    var baseUrl = ";
+        // line 32
+        echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
+        echo ";
+    var siteUrl = ";
+        // line 33
+        echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
+        echo ";
+</script>
+
 
 
     ";
-        // line 33
+        // line 38
         $this->displayBlock('navBar', $context, $blocks);
-        // line 36
+        // line 41
         echo "
     <!-- Main jumbotron for a primary marketing message or call to action -->
     ";
-        // line 38
+        // line 43
         $this->displayBlock('jumbotron', $context, $blocks);
-        // line 39
+        // line 44
         echo "
     <div class=\"container\">
         <!-- Put main content here -->
 
         ";
-        // line 43
+        // line 48
         $this->displayBlock('mainContent', $context, $blocks);
-        // line 44
+        // line 49
         echo "
         <!-- END: Put main content here -->
         <hr>
@@ -100,16 +111,16 @@ class __TwigTemplate_8cfbc9ca3b1d9df4a60794264c5cb4864cbfaf34dce20f7004bb1c30fd1
     <!-- Placed at the end of the document so the pages load faster -->
     <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>
     <script>window.jQuery || document.write('<script src=\"";
-        // line 58
+        // line 63
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/docs/assets/js/vendor/jquery.min.js\"><\\/script>')</script>
     <script src=\"";
-        // line 59
+        // line 64
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/dist/js/bootstrap.min.js\"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src=\"";
-        // line 61
+        // line 66
         echo twig_escape_filter($this->env, (isset($context["baseUrl"]) ? $context["baseUrl"] : null), "html", null, true);
         echo "vendor/twbs/bootstrap/docs/assets/js/ie10-viewport-bug-workaround.js\"></script>
 </body>
@@ -117,22 +128,22 @@ class __TwigTemplate_8cfbc9ca3b1d9df4a60794264c5cb4864cbfaf34dce20f7004bb1c30fd1
 ";
     }
 
-    // line 33
+    // line 38
     public function block_navBar($context, array $blocks = array())
     {
-        // line 34
+        // line 39
         echo "        ";
-        $this->loadTemplate("templates/topNavbar.twig", "templates/layout.twig", 34)->display($context);
-        // line 35
+        $this->loadTemplate("templates/topNavbar.twig", "templates/layout.twig", 39)->display($context);
+        // line 40
         echo "    ";
     }
 
-    // line 38
+    // line 43
     public function block_jumbotron($context, array $blocks = array())
     {
     }
 
-    // line 43
+    // line 48
     public function block_mainContent($context, array $blocks = array())
     {
         echo " ";
@@ -150,7 +161,7 @@ class __TwigTemplate_8cfbc9ca3b1d9df4a60794264c5cb4864cbfaf34dce20f7004bb1c30fd1
 
     public function getDebugInfo()
     {
-        return array (  136 => 43,  131 => 38,  127 => 35,  124 => 34,  121 => 33,  113 => 61,  108 => 59,  104 => 58,  88 => 44,  86 => 43,  80 => 39,  78 => 38,  74 => 36,  72 => 33,  57 => 21,  51 => 18,  45 => 15,  35 => 12,  22 => 1,);
+        return array (  147 => 48,  142 => 43,  138 => 40,  135 => 39,  132 => 38,  124 => 66,  119 => 64,  115 => 63,  99 => 49,  97 => 48,  91 => 44,  89 => 43,  85 => 41,  83 => 38,  75 => 33,  71 => 32,  57 => 21,  51 => 18,  45 => 15,  35 => 12,  22 => 1,);
     }
 }
 /* <!DOCTYPE html>*/
@@ -183,6 +194,11 @@ class __TwigTemplate_8cfbc9ca3b1d9df4a60794264c5cb4864cbfaf34dce20f7004bb1c30fd1
 /* </head>*/
 /* */
 /* <body>*/
+/* <script type="text/javascript">*/
+/*     var baseUrl = {{ baseUrl }};*/
+/*     var siteUrl = {{ siteUrl }};*/
+/* </script>*/
+/* */
 /* */
 /* */
 /*     {% block navBar %}*/

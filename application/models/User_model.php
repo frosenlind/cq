@@ -33,6 +33,31 @@ class User_model extends CI_Model
         }
     }
 
+    public function getAll($limit = NULL){
+        $users = array();
+        $i = 0;
+
+        try {
+            if($limit !== NULL){$this->db->limit($limit);}
+            $query = $this->db->get('users');
+            if ($query->num_rows() < 1) { throw new Exception('Did not find any users'); }
+
+            //CI gives us an array of objects
+            $arrUsers = $query->result();
+
+            //lets make them group objects
+            foreach($arrUsers as $arrUser){
+                $users[$i] = new entities\User($arrUser);
+                $i++;
+            }
+            return $users;
+
+        } catch(Exception $err){
+            log_message('error', 'User_model::getAll - Someone tried to get all users but there were none!');
+            die($err->getMessage());
+        }
+    }
+
     public function save($user){
 
         $this->db->set('username', $user->getUsername());

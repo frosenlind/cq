@@ -134,10 +134,10 @@ class Group_model extends CI_Model
             $obj->name = $resource['name'];
             $obj->description = $resource['description'];
             $obj->groupid = $group->getId();
-            $obj->crudc = '0';
-            $obj->crudr = '0';
-            $obj->crudu = '0';
-            $obj->crudd = '0';
+            if(strrchr($resource['activecrud'], 'C') != false){$obj->crudc = '0';}else{$obj->crudc = 'N';}
+            if(strrchr($resource['activecrud'], 'R') != false){$obj->crudr = '0';}else{$obj->crudr = 'N';}
+            if(strrchr($resource['activecrud'], 'U') != false){$obj->crudu = '0';}else{$obj->crudu = 'N';}
+            if(strrchr($resource['activecrud'], 'D') != false){$obj->crudd = '0';}else{$obj->crudd = 'N';}
 
             $query2 = $this->db->select('*')->from('resources_groups as rg')
                 ->where('rg.groupid', $group->getId())
@@ -197,5 +197,18 @@ class Group_model extends CI_Model
             );
             $this->db->insert('users_groups', $data);
         }
+    }
+
+    public function removeUser($group, $user){
+        $query = $this->db->where('userid', $user->getId())->where('groupid', $group->getId());
+        $this->db->delete('users_groups');
+    }
+
+    public function delete($group){
+        $query = $this->db->where('groupid', $group->getId());
+        $this->db->delete('users_groups');
+
+        $query2 = $this->db->where('id', $group->getId());
+        $this->db->delete('groups');
     }
 }

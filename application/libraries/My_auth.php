@@ -68,7 +68,7 @@ class My_auth
 
         if($CI->session->userdata('loggedIn') !== 'user'){
             $this->logout();
-            redirect('error/error401', 'refresh');
+            redirect(site_url(), 'refresh');
         }
     }
 

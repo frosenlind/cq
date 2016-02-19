@@ -50,17 +50,22 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
             echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
             echo "admin/group/";
             echo twig_escape_filter($this->env, $this->getAttribute($context["group"], "id", array()), "html", null, true);
-            echo "\" class=\"list-group-item\"><strong>";
+            echo "\" class=\"list-group-item\">
+                        <strong>";
+            // line 15
             echo twig_escape_filter($this->env, twig_capitalize_string_filter($this->env, $this->getAttribute($context["group"], "name", array())), "html", null, true);
-            echo "</strong> - ";
+            echo "</strong>
+                        - ";
+            // line 16
             echo twig_escape_filter($this->env, twig_capitalize_string_filter($this->env, $this->getAttribute($context["group"], "description", array())), "html", null, true);
-            echo "</a>
+            echo "
+                    </a>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['group'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 16
+        // line 19
         echo "
             </div>
 
@@ -68,11 +73,11 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
         <div class=\"col-md-6\">
             <h2>Skapa grupp</h2>
             <form action=\"";
-        // line 22
+        // line 25
         echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
         echo "admin/groups\" method=\"post\">
                 ";
-        // line 23
+        // line 26
         echo (isset($context["validation_errors"]) ? $context["validation_errors"] : null);
         echo "
                 <div class=\"form-group\">
@@ -83,7 +88,12 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
                     <label for=\"pass\">Beskrivning</label>
                     <input type=\"text\" name=\"description\" class=\"form-control\" id=\"description\" placeholder=\"Beskrivning på gruppen\">
                 </div>
-                <input type=\"submit\" class=\"btn btn-default\" value=\"Spara\" />
+                <input type=\"submit\" class=\"btn btn-default\" value=\"Spara\" ";
+        // line 35
+        if (($this->getAttribute($this->getAttribute((isset($context["ACL"]) ? $context["ACL"] : null), "groups", array()), "C", array()) != true)) {
+            echo "disabled";
+        }
+        echo ">
             </form>
         </div>
     </div>
@@ -103,7 +113,7 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
 
     public function getDebugInfo()
     {
-        return array (  76 => 23,  72 => 22,  64 => 16,  49 => 14,  45 => 13,  34 => 5,  31 => 4,  28 => 3,  11 => 1,);
+        return array (  93 => 35,  81 => 26,  77 => 25,  69 => 19,  60 => 16,  56 => 15,  49 => 14,  45 => 13,  34 => 5,  31 => 4,  28 => 3,  11 => 1,);
     }
 }
 /* {% extends "templates/admin.twig" %}*/
@@ -119,7 +129,10 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
 /* */
 /*             <div class="list-group">*/
 /*                 {% for group in groups %}*/
-/*                     <a href="{{ siteUrl }}admin/group/{{ group.id }}" class="list-group-item"><strong>{{ group.name|capitalize }}</strong> - {{ group.description|capitalize }}</a>*/
+/*                     <a href="{{ siteUrl }}admin/group/{{ group.id }}" class="list-group-item">*/
+/*                         <strong>{{ group.name|capitalize }}</strong>*/
+/*                         - {{ group.description|capitalize }}*/
+/*                     </a>*/
 /*                 {% endfor %}*/
 /* */
 /*             </div>*/
@@ -137,7 +150,7 @@ class __TwigTemplate_58fa6be8473faa05f92194f9ddb3d3897e004e9d9e6c55c661fcdaaa32d
 /*                     <label for="pass">Beskrivning</label>*/
 /*                     <input type="text" name="description" class="form-control" id="description" placeholder="Beskrivning på gruppen">*/
 /*                 </div>*/
-/*                 <input type="submit" class="btn btn-default" value="Spara" />*/
+/*                 <input type="submit" class="btn btn-default" value="Spara" {% if ACL.groups.C != true %}disabled{% endif %}>*/
 /*             </form>*/
 /*         </div>*/
 /*     </div>*/

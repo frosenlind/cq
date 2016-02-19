@@ -18,10 +18,9 @@ class Admin extends MY_Controller{
         $this->acl->accessRedirect($this->activeUser, 'adminpanel', 'R');
 
         //sätter globals för adminmenyn
-        if($this->acl->access($this->activeUser, 'groups', 'R')){
-            $this->twig->addGlobal('adminMenuGroups', true);
-        }
-
+        if($this->acl->access($this->activeUser, 'groups', 'R')){$this->twig->addGlobal('adminMenuGroups', true);}
+        if($this->acl->access($this->activeUser, 'users', 'R')){$this->twig->addGlobal('adminMenuUsers', true);}
+        if($this->acl->access($this->activeUser, 'resources', 'R')){$this->twig->addGlobal('adminMenuResources', true);}
     }
 
     public function index(){
@@ -31,10 +30,15 @@ class Admin extends MY_Controller{
 
     public function groups(){
         $this->acl->accessRedirect($this->activeUser, 'groups', 'R');
+        //ACL TWIG Permissions
+        if($this->acl->access($this->activeUser, 'groups', 'D')){$data['ACL']['groups']['D'] = true;}
+
         //load CI Resurces
         $this->load->library('form_validation');
         $this->load->model('group_model');
-
+        //ACL TWIG Permissions
+        if($this->acl->access($this->activeUser, 'groups', 'C')){$data['ACL']['groups']['C'] = true;}
+        if($this->acl->access($this->activeUser, 'groups', 'R')){$data['ACL']['groups']['R'] = true;}
 
         $data['pageHeader'] = 'Administrera grupper';
         $data['groups'] = $this->group_model->getAll();
@@ -53,28 +57,36 @@ class Admin extends MY_Controller{
         }
         else
         {
+            if($this->acl->access($this->activeUser, 'groups', 'C')){
+                $arg = new stdClass();
+                $arg->name = $this->input->post('name');
+                $arg->description = $this->input->post('description');
+                $newgroup = new \entities\Group($arg);
 
-            $arg = new stdClass();
-            $arg->name = $this->input->post('name');
-            $arg->description = $this->input->post('description');
-            $newgroup = new \entities\Group($arg);
-
-            $this->group_model->save($newgroup);
-            redirect(site_url('admin/groups'), 'refresh');
+                $this->group_model->save($newgroup);
+                redirect(site_url('admin/groups'), 'refresh');
+            }
         }
     }
 
     public function group($groupId = NULl){
         $this->load->model('group_model');
         $this->load->library('form_validation');
-        $this->load->library('acl');
+
+        //ACL TWIG Permissions
+        if($this->acl->access($this->activeUser, 'groups', 'D')){$data['ACL']['groups']['D'] = true;}
+        if($this->acl->access($this->activeUser, 'groupuser', 'C')){$data['ACL']['groupuser']['C'] = true;}
+        if($this->acl->access($this->activeUser, 'groupuser', 'R')){$data['ACL']['groupuser']['R'] = true;}
+        if($this->acl->access($this->activeUser, 'groupuser', 'D')){$data['ACL']['groupuser']['D'] = true;}
+        if($this->acl->access($this->activeUser, 'groupresources ', 'U')){$data['ACL']['groupresources']['U'] = true;}
+        if($this->acl->access($this->activeUser, 'groupresources ', 'R')){$data['ACL']['groupresources']['R'] = true;}
 
         $this->form_validation->set_error_delimiters('<p class="alert alert-danger">', '</p>');
         $this->form_validation->set_message('required', 'Fältet "%s" är obligatostiskt!');
 
         if($this->input->post('type') == 'resources'){
             $this->form_validation->set_rules('resourceid', 'resourceid', 'required');
-            if ($this->form_validation->run() !== FALSE)
+            if ($this->form_validation->run() !== FALSE and $this->acl->access($this->activeUser, 'groupresources ', 'U'))
             {
                 $obj = new stdClass();
                 $obj->crud = '';
@@ -95,13 +107,19 @@ class Admin extends MY_Controller{
                 $data['search'] = $this->user_model->search($this->input->post('input'));
 
             }
-        }elseif($this->input->post('type') == 'addUser'){
+        }elseif($this->input->post('type') == 'addUser' and $this->acl->access($this->activeUser, 'groupuser', 'C')){
             $users = $this->input->post('users');
-            foreach($users as $user ){
-                $objUser = $this->user_model->get($user);
-                $objGroup = $this->group_model->get($groupId);
-                $this->group_model->addUser($objGroup, $objUser);
+            if(!empty($users)) {
+                foreach ($users as $user) {
+                    $objUser = $this->user_model->get($user);
+                    $objGroup = $this->group_model->get($groupId);
+                    $this->group_model->addUser($objGroup, $objUser);
+                }
             }
+        }elseif($this->input->post('type') == 'removeGroup' and $this->acl->access($this->activeUser, 'groups', 'D')){
+            $group = $this->group_model->get($groupId);
+            $this->group_model->delete($group);
+            redirect(site_url('admin/groups'), 'refresh');
         }
 
         $data['group'] = $this->group_model->get($groupId);
@@ -112,4 +130,17 @@ class Admin extends MY_Controller{
 
         $this->twig->display('admin/group', $data);
     }
+
+    public function users(){
+        $this->acl->accessRedirect($this->activeUser, 'users', 'R');
+        $data['pageHeader'] = 'Användare';
+
+        //ACL TWIG Permissions
+        if($this->acl->access($this->activeUser, 'users', 'U')){$data['ACL']['users']['U'] = true;}
+
+
+        $data['users'] = $this->user_model->getAll();
+        $this->twig->display('admin/users', $data);
+    }
+
 }

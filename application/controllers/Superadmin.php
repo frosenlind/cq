@@ -9,6 +9,7 @@
 class Superadmin extends MY_Controller{
 
     public function resources(){
+        $this->acl->accessRedirect($this->activeUser, 'resources', 'R');
         //load CI Resurces
         $this->load->library('form_validation');
         $this->load->model('resources_model');

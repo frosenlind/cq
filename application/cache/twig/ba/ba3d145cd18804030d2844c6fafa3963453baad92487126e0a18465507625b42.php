@@ -26,8 +26,15 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
         echo "    <div class=\"col-sm-3 col-md-2 sidebar-offcanvas\" id=\"sidebar\" role=\"navigation\">
 
         <ul class=\"nav nav-sidebar\">
-            <li class=\"disabled\"><a href=\"#\">Medlemmar</a></li>
-            <li class=\"disabled\"><a href=\"#\">Nya medlemar</a></li>
+            ";
+        // line 5
+        if (((isset($context["adminMenuUsers"]) ? $context["adminMenuUsers"] : null) == true)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
+            echo "admin/users\">Användare</a></li>";
+        }
+        // line 6
+        echo "            <li class=\"disabled\"><a href=\"#\">Nya medlemar</a></li>
             <li class=\"disabled\"><a href=\"#\">Skapa medlem</a></li>
             ";
         // line 8
@@ -49,11 +56,15 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
             <li class=\"disabled\"><a href=\"\">Lokalbokning Loge 2</a></li>
         </ul>
         <ul class=\"nav nav-sidebar\">
-            <li><a href=\"";
+            ";
         // line 21
-        echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
-        echo "superadmin/resources\">Resources</a></li>
-        </ul>
+        if (((isset($context["adminMenuResources"]) ? $context["adminMenuResources"] : null) == true)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
+            echo "superadmin/resources\">Resources</a></li>";
+        }
+        // line 22
+        echo "        </ul>
 
 
     </div><!--/span-->
@@ -67,14 +78,14 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 
     public function getDebugInfo()
     {
-        return array (  54 => 21,  40 => 9,  34 => 8,  26 => 2,  20 => 1,);
+        return array (  67 => 22,  61 => 21,  47 => 9,  41 => 8,  37 => 6,  31 => 5,  26 => 2,  20 => 1,);
     }
 }
 /* {% block adminMenu %}*/
 /*     <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">*/
 /* */
 /*         <ul class="nav nav-sidebar">*/
-/*             <li class="disabled"><a href="#">Medlemmar</a></li>*/
+/*             {% if adminMenuUsers == true %}<li><a href="{{ siteUrl }}admin/users">Användare</a></li>{% endif %}*/
 /*             <li class="disabled"><a href="#">Nya medlemar</a></li>*/
 /*             <li class="disabled"><a href="#">Skapa medlem</a></li>*/
 /*             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}*/
@@ -90,7 +101,7 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 /*             <li class="disabled"><a href="">Lokalbokning Loge 2</a></li>*/
 /*         </ul>*/
 /*         <ul class="nav nav-sidebar">*/
-/*             <li><a href="{{ siteUrl }}superadmin/resources">Resources</a></li>*/
+/*             {% if adminMenuResources == true %}<li><a href="{{ siteUrl }}superadmin/resources">Resources</a></li>{% endif %}*/
 /*         </ul>*/
 /* */
 /* */

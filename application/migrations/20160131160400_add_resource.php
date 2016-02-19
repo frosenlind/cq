@@ -27,6 +27,10 @@ class Migration_Add_resource extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ),
+            'activecrud' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 4,
+            ),
             'created' => array(
                 'type' => 'INT',
                 'constraint' => 11,
@@ -38,11 +42,12 @@ class Migration_Add_resource extends CI_Migration {
         $time = time();
 
         $data = array(
-            array('name' => 'resources','description' => 'Resurser','created' => $time),
-            array('name' => 'adminpanel','description' => 'Administrationspanelen','created' => $time),
-            array('name' => 'groups','description' => 'Grupper','created' => $time),
-            array('name' => 'groupResources','description' => 'Grupper och rättigheter','created' => $time),
-            array('name' => 'groupUser','description' => 'Grupper och användare','created' => $time)
+            array('name' => 'resources','description' => 'Resurser','activecrud' => 'CR','created' => $time),
+            array('name' => 'adminpanel','description' => 'Administrationspanelen','activecrud' => 'R','created' => $time),
+            array('name' => 'groups','description' => 'Grupper','activecrud' => 'CRD','created' => $time),
+            array('name' => 'groupResources','description' => 'Grupper och rättigheter','activecrud' => 'RU','created' => $time),
+            array('name' => 'groupUser','description' => 'Grupper och användare','activecrud' => 'CRD','created' => $time),
+            array('name' => 'users','description' => 'Användare','activecrud' => 'RU','created' => $time)
         );
 
         $this->db->insert_batch('resources', $data);

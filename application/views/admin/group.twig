@@ -4,7 +4,21 @@
     <h1 class="page-header">
         {{ pageHeader|capitalize }}
     </h1>
-    <p>{{ group.description|capitalize }}</p>
+    {% if ACL.groups.D == true %}
+    <p>
+        <span class="glyphicon glyphicon-remove-circle" id="removeGroup" title="Ta bot grupp"></span>
+        <div class="alert alert-danger" id="removeGroupConfirmation" style="display: none">
+            <p>Vill du verkligen ta bort gruppen och alla användare? Detta kan inte ångras!</p>
+            <form class="form-inline" method="post" action="{{ siteUrl }}admin/group/{{ group.id }}">
+                <input type="hidden" name="type" value="removeGroup">
+                <button id="removeGroupConfirmationNo" class="btn btn-success">AVBRYT</button>
+                <input type="submit" value="Ta bort" class="btn btn-danger">
+            </form>
+        </div>
+    </p>
+    {% endif %}
+    <span style="display: none" id="groupId">{{ group.id }}</span>
+
 
 
     <div class="col-sm-9 col-md-10 main">
@@ -24,47 +38,52 @@
                     <ul class="list-group">
                         {% for user in search %}
                             <li class="list-group-item">
-                                <input type="checkbox" name="users[]" value="{{ user.id }}"/>
+                                <input type="checkbox" name="users[]" value="{{ user.id }}">
                                 {{ user.username|capitalize }} - {{ user.email }}
                             </li>
                         {% endfor %}
                     </ul>
                     <input type="hidden" name="type" value="addUser">
-                    <input type="submit" class="btn btn-default" value="Lägg till" />
+                    <input type="submit" class="btn btn-default" value="Lägg till" {% if ACL.groupuser.C != true %}disabled{% endif %}>
                 </form>
             </div>
             <div class="row">
                 <h2>Användare</h2>
-                <ul class="list-group">
-                    {% for user in users %}
-                        <li class="list-group-item">
-                            <button type="button" id="delete" class="btn btn-default" title="Ta bort användare från grupp"><span class="glyphicon glyphicon-remove-circle"></span> Ta bort</button>
-                            {{ user.username|capitalize }} - {{ user.email }}
-                        </li>
-                    {% endfor %}
-                </ul>
-
+                {% if ACL.groupuser.R == true %}
+                    <ul class="list-group">
+                        {% for user in users %}
+                            <li class="list-group-item">
+                                <button type="button" id="delete" class="btn btn-default" title="Ta bort användare från grupp" {% if ACL.groupuser.D != true %}disabled{% endif %}><span class="glyphicon glyphicon-remove-circle"></span> Ta bort</button>
+                                <span id="userId" style="display: none">{{ user.id }}</span>
+                                {{ user.username|capitalize }} - {{ user.email }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="alert alert-danger">Du har inte behörighet att se gruppens användare</p>
+                {% endif %}
             </div>
         </div>
         <div class="col-md-6">
             <h2>Resurser</h2>
 
+            {% if ACL.groupresources.R == true %}
             <ul class="list-group">
                 {% for resource in resources %}
                     <li class="list-group-item">
                         <form action="{{ siteUrl }}admin/group/{{ group.id }}" method="post">
-                            <input type="submit" value="Spara" class="btn btn-default"/>
-                            <a class="label {% if resource.crudc %}label-success {% else %} label-danger{% endif %}">C</a>
-                            <input type="checkbox" name="crudc" {% if resource.crudc %} checked {% endif %} />
+                            <input type="submit" value="Spara" class="btn btn-default" {% if ACL.groupresources.U != true %}disabled{% endif %}>
+                            <a class="label {% if resource.crudc == 1%}label-success {% elseif resource.crudc == 'N' %}label-warning{% else %} label-danger{% endif %}">C</a>
+                            <input type="checkbox" name="crudc" {% if resource.crudc == 1 %} checked {% elseif  resource.crudc == 'N' %}disabled{% endif %} />
 
-                            <a class="label {% if resource.crudr %}label-success {% else %} label-danger{% endif %}">R</a>
-                            <input type="checkbox" name="crudr" {% if resource.crudr %} checked {% endif %} />
+                            <a class="label {% if resource.crudr == 1%}label-success {% elseif resource.crudr == 'N' %}label-warning{% else %} label-danger{% endif %}">R</a>
+                            <input type="checkbox" name="crudr" {% if resource.crudr == 1 %} checked {% elseif  resource.crudr == 'N' %}disabled{% endif %} />
 
-                            <a class="label {% if resource.crudu %}label-success {% else %} label-danger{% endif %}">U</a>
-                            <input type="checkbox" name="crudu" {% if resource.crudu %} checked {% endif %} />
+                            <a class="label {% if resource.crudu == 1%}label-success {% elseif resource.crudu == 'N' %}label-warning{% else %} label-danger{% endif %}">U</a>
+                            <input type="checkbox" name="crudu" {% if resource.crudu == 1 %} checked {% elseif  resource.crudu == 'N' %}disabled{% endif %} />
 
-                            <a class="label {% if resource.crudd %}label-success {% else %} label-danger{% endif %}">D</a>
-                            <input type="checkbox" name="crudd" {% if resource.crudd %} checked {% endif %} />
+                            <a class="label {% if resource.crudd == 1%}label-success {% elseif resource.crudd == 'N' %}label-warning{% else %} label-danger{% endif %}">D</a>
+                            <input type="checkbox" name="crudd" {% if resource.crudd == 1 %} checked {% elseif  resource.crudd == 'N' %}disabled{% endif %} />
 
                             <input type="hidden" name="resourceid" value="{{ resource.id }}">
                             <input type="hidden" name="type" value="resources">
@@ -74,6 +93,9 @@
                     </li>
                 {% endfor %}
             </ul>
+            {% else %}
+                <p class="alert alert-danger">Du har inte behörighet att se gruppens resurser</p>
+            {% endif %}
         </div>
     </div>
 {% endblock mainContent %}

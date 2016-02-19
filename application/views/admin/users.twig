@@ -1,0 +1,27 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th>Användarnamn</th>
+                <th>E-postadress</th>
+                <th>Skapad</th>
+            </tr>
+            {% for user in users %}
+                <tr>
+                    <td><a href="#" class="btn btn-default">Visa / Redigera</a> </td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.created|date("Y-m-d") }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock mainContent %}

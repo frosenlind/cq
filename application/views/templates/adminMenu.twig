@@ -2,7 +2,7 @@
     <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
 
         <ul class="nav nav-sidebar">
-            <li class="disabled"><a href="#">Medlemmar</a></li>
+            {% if adminMenuUsers == true %}<li><a href="{{ siteUrl }}admin/users">Användare</a></li>{% endif %}
             <li class="disabled"><a href="#">Nya medlemar</a></li>
             <li class="disabled"><a href="#">Skapa medlem</a></li>
             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}
@@ -18,7 +18,7 @@
             <li class="disabled"><a href="">Lokalbokning Loge 2</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-            <li><a href="{{ siteUrl }}superadmin/resources">Resources</a></li>
+            {% if adminMenuResources == true %}<li><a href="{{ siteUrl }}superadmin/resources">Resources</a></li>{% endif %}
         </ul>
 
 
