@@ -167,7 +167,7 @@ class __TwigTemplate_a4522f7d6d33bd1cae21d42145f945c7d735e5affb9642434e8e6a991ca
                 ";
         } else {
             // line 63
-            echo "                    <p class=\"alert alert-danger\">Du har inte behörighet att se gruppens användare</p>
+            echo "                    <p class=\"alert alert-warning\">Du har inte behörighet att se gruppens användare</p>
                 ";
         }
         // line 65
@@ -300,7 +300,7 @@ class __TwigTemplate_a4522f7d6d33bd1cae21d42145f945c7d735e5affb9642434e8e6a991ca
             ";
         } else {
             // line 97
-            echo "                <p class=\"alert alert-danger\">Du har inte behörighet att se gruppens resurser</p>
+            echo "                <p class=\"alert alert-warning\">Du har inte behörighet att se gruppens resurser</p>
             ";
         }
         // line 99
@@ -399,7 +399,7 @@ class __TwigTemplate_a4522f7d6d33bd1cae21d42145f945c7d735e5affb9642434e8e6a991ca
 /*                         {% endfor %}*/
 /*                     </ul>*/
 /*                 {% else %}*/
-/*                     <p class="alert alert-danger">Du har inte behörighet att se gruppens användare</p>*/
+/*                     <p class="alert alert-warning">Du har inte behörighet att se gruppens användare</p>*/
 /*                 {% endif %}*/
 /*             </div>*/
 /*         </div>*/
@@ -433,7 +433,7 @@ class __TwigTemplate_a4522f7d6d33bd1cae21d42145f945c7d735e5affb9642434e8e6a991ca
 /*                 {% endfor %}*/
 /*             </ul>*/
 /*             {% else %}*/
-/*                 <p class="alert alert-danger">Du har inte behörighet att se gruppens resurser</p>*/
+/*                 <p class="alert alert-warning">Du har inte behörighet att se gruppens resurser</p>*/
 /*             {% endif %}*/
 /*         </div>*/
 /*     </div>*/

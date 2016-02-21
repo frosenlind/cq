@@ -43,13 +43,21 @@ class Migration_Add_user extends CI_Migration {
         //password = test
 
         $data = array(
-            'username' => 'administrator',
-            'password' => '$2y$10$LdDvj4BY7Nyx7MaKXALHx.juH2VXWuOHMy4WrzxtjZvHw7MX4K37m',
-            'email' => 'frosenlind@gmail.com',
-            'created' => time()
+            array(
+                'username' => 'administrator',
+                'password' => '$2y$10$LdDvj4BY7Nyx7MaKXALHx.juH2VXWuOHMy4WrzxtjZvHw7MX4K37m',
+                'email' => 'frosenlind@gmail.com',
+                'created' => time()
+            ),
+            array(
+                'username' => 'testanvändare',
+                'password' => '$2y$10$LdDvj4BY7Nyx7MaKXALHx.juH2VXWuOHMy4WrzxtjZvHw7MX4K37m',
+                'email' => 'test@test.com',
+                'created' => time()
+            )
         );
 
-        $this->db->insert('users', $data);
+        $this->db->insert_batch('users', $data);
     }
 
     public function down()

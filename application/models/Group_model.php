@@ -117,7 +117,6 @@ class Group_model extends CI_Model
             log_message('info', 'User_group_model::getUsers - '.$err->getMessage());
             return $users;
         }
-
     }
 
     public function getResources($group){

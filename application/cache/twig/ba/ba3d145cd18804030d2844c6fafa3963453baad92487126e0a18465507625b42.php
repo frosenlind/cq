@@ -30,8 +30,8 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
         // line 5
         if (((isset($context["adminMenuUsers"]) ? $context["adminMenuUsers"] : null) == true)) {
             echo "<li><a href=\"";
-            echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
-            echo "admin/users\">Användare</a></li>";
+            echo twig_escape_filter($this->env, (isset($context["adminUrl"]) ? $context["adminUrl"] : null), "html", null, true);
+            echo "users\">Användare</a></li>";
         }
         // line 6
         echo "            <li class=\"disabled\"><a href=\"#\">Nya medlemar</a></li>
@@ -85,7 +85,7 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 /*     <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">*/
 /* */
 /*         <ul class="nav nav-sidebar">*/
-/*             {% if adminMenuUsers == true %}<li><a href="{{ siteUrl }}admin/users">Användare</a></li>{% endif %}*/
+/*             {% if adminMenuUsers == true %}<li><a href="{{ adminUrl }}users">Användare</a></li>{% endif %}*/
 /*             <li class="disabled"><a href="#">Nya medlemar</a></li>*/
 /*             <li class="disabled"><a href="#">Skapa medlem</a></li>*/
 /*             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}*/

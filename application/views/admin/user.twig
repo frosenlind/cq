@@ -1,0 +1,65 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}: {{ user.username|title }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-6">
+            <h3>Användaren är medlem i följande grupper:</h3>
+            {% if groups is empty %}<div class="alert alert-info">Användaren är inte med i någon grupp!</div>{% endif %}
+            <div class="list-group">
+                {% for group in groups %}
+                    <a {% if ACL.groups.R == true %}href="{{ siteUrl }}admin/group/{{ group.id }}"{% endif %} class="list-group-item">
+                        <strong>{{ group.name|capitalize }}</strong>
+                        - {{ group.description|capitalize }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% if ACL.users.U != true %}<div class="alert alert-warning">Du har inte rätt att redigare användare.</div>{% endif %}
+            <h3>Inloggningsuppgifter</h3>
+            <p>
+                Användarnamn: {{ user.username|title  }}<br />
+                E-postadress: {{ user.email }}<br />
+            </p>
+            <hr>
+            <form action="#" method="post" class="form-inline">
+                {{ validation_errors|raw }}
+                {% if formUsername %}<div class="alert alert-success">Användarnamnet är ändrat!</div> {% endif %}
+                {% if formEmail %}<div class="alert alert-success">E-postadressen är ändrat!</div> {% endif %}
+                {% if formPassword %}<div class="alert alert-success">Lösenordet är ändrat!</div> {% endif %}
+
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Nytt Användarnamn">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" {% if ACL.users.U != true %}disabled{% endif %}>
+                <input type="hidden" name="type" id="type" value="username">
+            </form>
+            <form action="#" method="post" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="email" class="form-control" id="email" placeholder="Ny E-post">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" {% if ACL.users.U != true %}disabled{% endif %}>
+                <input type="hidden" name="type" id="type" value="email">
+            </form>
+            <hr>
+
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="pass">Nytt lösenord</label>
+                    <input type="password" name="pass" class="form-control" id="pass" placeholder="Nytt lösenord">
+                </div>
+                <div class="form-group">
+                    <label for="pass2">Repetera nytt lösenord</label>
+                    <input type="password" name="pass2" class="form-control" id="pass2" placeholder="Repetera nytt lösenord">
+                </div>
+                <input type="submit" class="btn btn-default" value="Spara" {% if ACL.users.U != true %}disabled{% endif %}>
+                <input type="hidden" name="type" id="type" value="password">
+            </form>
+        </div>
+    </div>
+
+{% endblock mainContent %}

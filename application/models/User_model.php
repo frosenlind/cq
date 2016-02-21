@@ -86,4 +86,28 @@ class User_model extends CI_Model
         return $return;
     }
 
+    public function findGroups($objUser){
+        $this->load->model('group_model');
+        $users = array();
+        $i = 0;
+
+        try {
+            $query = $this->db->where('userid', $objUser->getId())->get('users_groups');
+            if($query->num_rows() == 0){throw new Exception('The user is not a member of any groups'); }
+
+            //CI gives us an array of objects
+            $arrUsersGroups = $query->result();
+
+            //lets make them group objects
+            foreach($arrUsersGroups as $arrUserGroup){
+                $groups[$i] = $this->group_model->get($arrUserGroup->groupid);
+                $i++;
+            }
+            return $groups;
+        }catch(Exception $err){
+            log_message('info', 'User_model::findGroups - '.$err->getMessage());
+            return $users;
+        }
+    }
+
 }

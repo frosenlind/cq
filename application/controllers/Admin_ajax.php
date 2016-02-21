@@ -19,6 +19,8 @@ class Admin_ajax extends MY_Controller{
 
 
             $this->group_model->removeUser($group, $user);
+        }else{
+            return $this->output->set_status_header(401);
         }
     }
 }

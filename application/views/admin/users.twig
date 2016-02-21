@@ -15,7 +15,7 @@
             </tr>
             {% for user in users %}
                 <tr>
-                    <td><a href="#" class="btn btn-default">Visa / Redigera</a> </td>
+                    <td><a href="{{ adminUrl }}users/user/{{ user.id }}" class="btn btn-default">Visa / Redigera</a> </td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.created|date("Y-m-d") }}</td>

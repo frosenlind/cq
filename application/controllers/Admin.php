@@ -6,22 +6,7 @@
  * Time: 20:54
  */
 
-class Admin extends MY_Controller{
-
-
-    /**
-     * Admin constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->acl->accessRedirect($this->activeUser, 'adminpanel', 'R');
-
-        //sätter globals för adminmenyn
-        if($this->acl->access($this->activeUser, 'groups', 'R')){$this->twig->addGlobal('adminMenuGroups', true);}
-        if($this->acl->access($this->activeUser, 'users', 'R')){$this->twig->addGlobal('adminMenuUsers', true);}
-        if($this->acl->access($this->activeUser, 'resources', 'R')){$this->twig->addGlobal('adminMenuResources', true);}
-    }
+class Admin extends Admin_Controller{
 
     public function index(){
         $data['pageHeader'] = 'Administration';
@@ -70,6 +55,7 @@ class Admin extends MY_Controller{
     }
 
     public function group($groupId = NULl){
+        $this->acl->accessRedirect($this->activeUser, 'groups', 'R');
         $this->load->model('group_model');
         $this->load->library('form_validation');
 
@@ -129,18 +115,6 @@ class Admin extends MY_Controller{
         $data['resources'] = $this->group_model->getResources($data['group']);
 
         $this->twig->display('admin/group', $data);
-    }
-
-    public function users(){
-        $this->acl->accessRedirect($this->activeUser, 'users', 'R');
-        $data['pageHeader'] = 'Användare';
-
-        //ACL TWIG Permissions
-        if($this->acl->access($this->activeUser, 'users', 'U')){$data['ACL']['users']['U'] = true;}
-
-
-        $data['users'] = $this->user_model->getAll();
-        $this->twig->display('admin/users', $data);
     }
 
 }
