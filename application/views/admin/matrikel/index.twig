@@ -1,0 +1,50 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-16">
+            <h3>Innan du laddar upp!</h3>
+            <p>Skapa din uppladdningsfil</p>
+            <ul>
+                <li>Öppna matrikeln i Excel. Säkerställ att första raden innehåller rubriker och att kolumnen ID <strong>INTE</strong> är med.!</li>
+                <li>I menyn välj "Spara som".</li>
+                <li>Ändra filformat till "Unicode-text (*.txt)". Tryck Spara.</li>
+                <li>Öppna den nya filen i "Notepad", konstatera att filen är "TAB-separerad". Kopiera en tabavgränsning (markera och tryck ctrl+c).</li>
+                <li>Tryck ctrl+h, klistra in "TAB-separationen" i "Hitta-rutan". Skriv in ett ; (semikolon) i "ersätt-rutan". Tryck på "Ersätt alla".</li>
+                <li>Välj "Spara som". Ändra namnet till formatet: matrikel_YYYYMMDD.csv, ändra därefter kodningen till UTF-8. Tryck Spara.</li>
+            </ul>
+            <h3>Kontrollera nu följande</h3>
+            <ul>
+                <li>Säkerställ att filens storlek ej överskrider 2000KB</li>
+                <li>Avbryt <strong>inte</strong> uppladdningsprocessen när den väl startat.</li>
+            </ul>
+        </div>
+        <div class="col-md-16">
+            <h3>Ladda upp fil</h3>
+
+            <form action="{{ adminUrl }}matrikel/do_upload" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="matrikelFile">Välj fil</label>
+                    <input type="file" id="matrikelFile" name="matrikelFile" class="form-control">
+                </div>
+
+                <button type="submit" value="Ladda upp" class="btn btn-default" {% if ACL.matrikel.C != true %}disabled{% endif %}>Ladda upp</button>
+            </form>
+        </div>
+
+        <div class="col-md-16">
+            <h3>Rensa Matrikeln</h3>
+            <p>Ibland kan man behöva tömma medlemsdatabasen, tryck nedan såfall.</p>
+            <p class="alert alert-info">OBS! Detta kan inte ångras, se till att du ha en matrikel-fil som du kan ladda upp efter du tömt!</p>
+
+            <form action="{{ adminUrl }}matrikel/truncate" method="post" enctype="multipart/form-data">
+                <button type="submit" value="Ladda upp" class="btn btn-danger" {% if ACL.matrikel.C != true %}disabled{% endif %}>Rensa matrikeln!</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock mainContent %}

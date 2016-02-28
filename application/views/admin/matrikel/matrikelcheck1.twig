@@ -1,0 +1,77 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-12">
+            <h2>Kontrollera, steg 1</h2>
+            <p>Kontrollera att fälten ligger i rätt kollumn. Om allt stämmer tryck "fortsätt". (Detta kan ta lång tid!)<br>
+            Nu kommer systemet kontrollera om medlemen finns i systemet sedan tidigare, om inte läggs den till, om den finns skrivs befintliga uppgifter över.
+                <form action="{{ adminUrl }}matrikel/matrikelCheck2/{{ filename }}"><input type="submit" value="Fortsätt" class="btn btn-danger"></form>
+            </p>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>ONR</th>
+                    <th>LNR</th>
+                    <th>Efternamn</th>
+                    <th>Fornamn</th>
+                    <th>Födelse</th>
+                    <th>Månad</th>
+                    <th>Tel 1</th>
+                    <th>Tel 2</th>
+                    <th>Tel 3</th>
+                    <th>Adress</th>
+                    <th>Postnr</th>
+                    <th>Ort</th>
+                    <th>Grad</th>
+                    <th>Intagen</th>
+                    <th>Loge</th>
+                    <th>Avliden</th>
+                    <th>Urträden</th>
+                    <th>Återinträde</th>
+                    <th>Urträde 2</th>
+                    <th>Återinträden 2</th>
+                    <th>Fadder 1</th>
+                    <th>Fadder 2</th>
+                    <th>E-post</th>
+                    <th>Passiv</th>
+                    <th>Hemsida</th>
+                </tr>
+                {% for line in lines %}
+                    <tr>
+                        <td>{{ line.0 }}</td>
+                        <td>{{ line.1 }}</td>
+                        <td>{{ line.2 }}</td>
+                        <td>{{ line.3 }}</td>
+                        <td>{{ line.4 }}</td>
+                        <td>{{ line.5 }}</td>
+                        <td>{{ line.6 }}</td>
+                        <td>{{ line.7 }}</td>
+                        <td>{{ line.8 }}</td>
+                        <td>{{ line.9 }}</td>
+                        <td>{{ line.10 }}</td>
+                        <td>{{ line.11 }}</td>
+                        <td>{{ line.12 }}</td>
+                        <td>{{ line.13 }}</td>
+                        <td>{{ line.14 }}</td>
+                        <td>{{ line.15 }}</td>
+                        <td>{{ line.16 }}</td>
+                        <td>{{ line.17 }}</td>
+                        <td>{{ line.18 }}</td>
+                        <td>{{ line.19 }}</td>
+                        <td>{{ line.20 }}</td>
+                        <td>{{ line.21 }}</td>
+                        <td>{{ line.22 }}</td>
+                        <td>{{ line.23 }}</td>
+                        <td>{{ line.24 }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock mainContent %}

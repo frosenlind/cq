@@ -3,9 +3,9 @@
 
         <ul class="nav nav-sidebar">
             {% if adminMenuUsers == true %}<li><a href="{{ adminUrl }}users">Användare</a></li>{% endif %}
-            <li class="disabled"><a href="#">Nya medlemar</a></li>
-            <li class="disabled"><a href="#">Skapa medlem</a></li>
+            {% if adminMenuNewUser == true %}<li><a href="{{ adminUrl }}users/newUser">Skapa användare</a></li>{% endif %}
             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}
+            {% if adminMenuMatrikel == true %}<li><a href="{{ adminUrl }}matrikel">Matrikel</a></li>{% endif %}
         </ul>
         <ul class="nav nav-sidebar">
             <li class="disabled"><a href="">Skapa nyhet</a></li>

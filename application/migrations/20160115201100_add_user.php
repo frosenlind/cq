@@ -31,6 +31,10 @@ class Migration_Add_user extends CI_Migration {
                 'type' => 'VARCHAR',
                 'constraint' => '256'
             ),
+            'onr' => array(
+                'type' => 'VARCHAR',
+                'constraint' => '10'
+            ),
             'created' => array(
                 'type' => 'INT',
                 'constraint' => 11,

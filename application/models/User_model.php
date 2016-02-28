@@ -33,6 +33,11 @@ class User_model extends CI_Model
         }
     }
 
+    public function findUserByOnr($onr){
+        $query = $this->db->where('onr', $onr)->get('users');
+        if ($query->num_rows() != 1){return false;}else{return $query->row()->id;}
+    }
+
     public function getAll($limit = NULL){
         $users = array();
         $i = 0;
@@ -62,12 +67,16 @@ class User_model extends CI_Model
 
         $this->db->set('username', $user->getUsername());
         $this->db->set('password', $user->getPassword());
+        $this->db->set('onr', $user->getOnr());
         $this->db->set('email', $user->getEmail());
 
-        $this->db->where('id', $user->getId());
-        $this->db->update('users');
-        $affectedRows = $this->db->affected_rows();
-        log_message('info', 'User_model::save - You updated the user '.$user->getId().' with '.$affectedRows.' affected rows.');
+        if($user->getId() == 0){
+            $this->db->set('created', time());
+            $this->db->insert('users');
+        }else{
+            $this->db->where('id', $user->getId());
+            $this->db->update('users');
+        }
     }
 
     public function search($string){

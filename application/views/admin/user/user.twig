@@ -26,18 +26,29 @@
                 E-postadress: {{ user.email }}<br />
             </p>
             <hr>
-            <form action="#" method="post" class="form-inline">
-                {{ validation_errors|raw }}
-                {% if formUsername %}<div class="alert alert-success">Användarnamnet är ändrat!</div> {% endif %}
-                {% if formEmail %}<div class="alert alert-success">E-postadressen är ändrat!</div> {% endif %}
-                {% if formPassword %}<div class="alert alert-success">Lösenordet är ändrat!</div> {% endif %}
+            {{ validation_errors|raw }}
+            {% if formOnr %}<div class="alert alert-success">Grattis, du har knutit kontot till en medlem!</div> {% endif %}
+            {% if formUsername %}<div class="alert alert-success">Användarnamnet är ändrat!</div> {% endif %}
+            {% if formEmail %}<div class="alert alert-success">E-postadressen är ändrat!</div> {% endif %}
+            {% if formPassword %}<div class="alert alert-success">Lösenordet är ändrat!</div> {% endif %}
 
+            <form action="#" method="post" class="form-inline">
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control" id="username" placeholder="Nytt Användarnamn">
+                    <input type="text" name="onr" class="form-control" id="onr" placeholder="ONR" value="{% if fullname is not empty %}{{ fullname }}{% endif %}">
+                </div>
+                <input type="submit" class="btn btn-danger" value="Spara" {% if ACL.matrikel.U != true %}disabled{% endif %}>
+                <input type="hidden" name="type" id="type" value="onr">
+            </form>
+            <hr>
+
+            <form action="#" method="post" class="form-inline">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control" id="username" placeholder="Nytt Visningsnamn">
                 </div>
                 <input type="submit" class="btn btn-default" value="Spara" {% if ACL.users.U != true %}disabled{% endif %}>
                 <input type="hidden" name="type" id="type" value="username">
             </form>
+
             <form action="#" method="post" class="form-inline">
                 <div class="form-group">
                     <input type="text" name="email" class="form-control" id="email" placeholder="Ny E-post">

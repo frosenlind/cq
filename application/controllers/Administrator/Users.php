@@ -12,17 +12,59 @@ class Users extends Admin_Controller{
         $this->acl->accessRedirect($this->activeUser, 'users', 'R');
         $data['pageHeader'] = 'Användare';
 
-        //ACL TWIG Permissions
-        //if($this->acl->access($this->activeUser, 'users', 'U')){$data['ACL']['users']['U'] = true;}
+        $data['users'] = $this->user_model->getAll();
+        $this->twig->display('admin/user/users', $data);
+    }
 
+    public function newUser(){
+        $this->acl->accessRedirect($this->activeUser, 'users', 'C');
+        $data['pageHeader'] = 'Skapa ny användare';
 
         $data['users'] = $this->user_model->getAll();
-        $this->twig->display('admin/users', $data);
+        $this->twig->display('admin/user/newUser', $data);
+    }
+
+    public function newUserMember(){
+        $this->acl->accessRedirect($this->activeUser, 'users', 'C');
+        $this->load->model('matrikel_model');
+        $data['pageHeader'] = 'Skapa ny användare från matrikel';
+
+        $memberslist = array();
+        $memberlistDb = $this->matrikel_model->findAll();
+
+        foreach($memberlistDb as $member){
+            if($this->user_model->findUserByOnr($member->getOnr()) === false){
+                $memberslist[] = $member;
+            }
+        }
+
+        $data['members'] = $memberslist;
+        $this->twig->display('admin/user/newUserMember', $data);
+    }
+
+    public function createUser($onr){
+        $this->load->model('matrikel_model');
+        $member = $this->matrikel_model->get($onr);
+
+        $parameters = new stdClass();
+        $parameters->username = $member->getFornamn().' '.$member->getEfternamn();
+        $parameters->password = '';
+        $parameters->email = $member->getEpost();
+        $parameters->onr = $member->getOnr();
+
+        $newUser = new entities\User($parameters);
+
+        $this->user_model->save($newUser);
+
+        $userId = $this->user_model->findUserByOnr($onr);
+
+        redirect(site_url('administrator/users/user/'.$userId), 'refresh');
     }
 
     public function User($userId=NULL){
         $this->acl->accessRedirect($this->activeUser, 'users', 'R');
         $this->load->library('form_validation');
+        $this->load->model('matrikel_model');
 
         $data['pageHeader'] = 'Användare';
         $data['user'] = $this->user_model->get($userId);
@@ -31,10 +73,18 @@ class Users extends Admin_Controller{
         //ACL TWIG Permissions
         if($this->acl->access($this->activeUser, 'users', 'U')){$data['ACL']['users']['U'] = true;}
         if($this->acl->access($this->activeUser, 'groups', 'R')){$data['ACL']['groups']['R'] = true;}
+        if($this->acl->access($this->activeUser, 'matrikel', 'U') and $this->acl->access($this->activeUser, 'users', 'U')){$data['ACL']['matrikel']['U'] = true;}
 
         //switch for different postactions
         $post = $this->input->post('type');
         switch ($post) {
+
+            case 'onr':
+                $this->form_validation->set_rules('onr', 'ONR', 'required');
+                if($this->form_validation->run() == TRUE) {
+                    $data['formOnr'] = $this->changeOnr($data['user']);
+                }
+            break;
 
             case 'username':
                 $this->form_validation->set_rules('username', 'Användarnamn', 'required');
@@ -65,7 +115,10 @@ class Users extends Admin_Controller{
             $data['validation_errors'] = validation_errors();
         }
 
-        $this->twig->display('admin/user', $data);
+        //ladda in denna variabeln här så det alltid är senaste.
+        $data['fullname'] = $this->matrikel_model->findFullNameByOnr($data['user']->getOnr());
+
+        $this->twig->display('admin/user/user', $data);
     }
 
     private function changePassword($objUser){
@@ -91,6 +144,15 @@ class Users extends Admin_Controller{
             return false;
         }
         $objUser->setUsername($this->input->post('username'));
+        $this->user_model->save($objUser);
+        return true;
+    }
+
+    private function changeOnr($objUser){
+        if(!$this->acl->access($this->activeUser, 'users', 'U') and !$this->acl->access($this->activeUser, 'matrikel', 'U')){
+            return false;
+        }
+        $objUser->setOnr($this->input->post('onr'));
         $this->user_model->save($objUser);
         return true;
     }

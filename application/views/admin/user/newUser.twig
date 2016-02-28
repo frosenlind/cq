@@ -1,0 +1,26 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-6">
+            <h2>Skapa användare från matrikel</h2>
+            <p>Medlemmen har inget användarkonto. Användaruppgifterna plockas från matrikeln.</p>
+            <p><a class="btn btn-default" href="{{ adminUrl }}users/newUserMember" role="button">Skapa</a></p>
+
+            <hr>
+
+            <h2>Skapa fri användare</h2>
+            <p>Skapa konto som inte är knutet till någon matrikelrad. Ex. administratör, webbmaster eller extern användare.</p>
+            <p><a class="btn btn-default" href="#" role="button" disabled>Skapa</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>Här kommer användare som väntar på att aktiveras.</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+        </div>
+    </div>
+
+{% endblock mainContent %}

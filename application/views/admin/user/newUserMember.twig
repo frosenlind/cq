@@ -1,0 +1,30 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+    <p>Listan innehåller endast medlemmar som <strong>inte</strong> redan har en inloggning.</p>
+
+    <div class="col-sm-9 col-md-10 main">
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th>Namn</th>
+                <th>E-postadress</th>
+                <th>Onr</th>
+                <th>Loge</th>
+            </tr>
+            {% for user in members %}
+                <tr>
+                    <td><a href="{{ adminUrl }}users/createUser/{{ user.onr }}" class="btn btn-default">Skapa</a> </td>
+                    <td>{{ user.fornamn }} {{ user.efternamn }}</td>
+                    <td>{{ user.epost }}</td>
+                    <td>{{ user.onr }}</td>
+                    <td>{{ user.loge }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+{% endblock mainContent %}

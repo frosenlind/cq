@@ -34,14 +34,25 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
             echo "users\">Användare</a></li>";
         }
         // line 6
-        echo "            <li class=\"disabled\"><a href=\"#\">Nya medlemar</a></li>
-            <li class=\"disabled\"><a href=\"#\">Skapa medlem</a></li>
-            ";
-        // line 8
+        echo "            ";
+        if (((isset($context["adminMenuNewUser"]) ? $context["adminMenuNewUser"] : null) == true)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["adminUrl"]) ? $context["adminUrl"] : null), "html", null, true);
+            echo "users/newUser\">Skapa användare</a></li>";
+        }
+        // line 7
+        echo "            ";
         if (((isset($context["adminMenuGroups"]) ? $context["adminMenuGroups"] : null) == true)) {
             echo "<li><a href=\"";
             echo twig_escape_filter($this->env, (isset($context["siteUrl"]) ? $context["siteUrl"] : null), "html", null, true);
             echo "admin/groups\">Grupper</a></li>";
+        }
+        // line 8
+        echo "            ";
+        if (((isset($context["adminMenuMatrikel"]) ? $context["adminMenuMatrikel"] : null) == true)) {
+            echo "<li><a href=\"";
+            echo twig_escape_filter($this->env, (isset($context["adminUrl"]) ? $context["adminUrl"] : null), "html", null, true);
+            echo "matrikel\">Matrikel</a></li>";
         }
         // line 9
         echo "        </ul>
@@ -78,7 +89,7 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 
     public function getDebugInfo()
     {
-        return array (  67 => 22,  61 => 21,  47 => 9,  41 => 8,  37 => 6,  31 => 5,  26 => 2,  20 => 1,);
+        return array (  78 => 22,  72 => 21,  58 => 9,  51 => 8,  44 => 7,  37 => 6,  31 => 5,  26 => 2,  20 => 1,);
     }
 }
 /* {% block adminMenu %}*/
@@ -86,9 +97,9 @@ class __TwigTemplate_047e00979c4ef2f8cd8b85c819262f03cce8e64e2fbe33d777db5ee095f
 /* */
 /*         <ul class="nav nav-sidebar">*/
 /*             {% if adminMenuUsers == true %}<li><a href="{{ adminUrl }}users">Användare</a></li>{% endif %}*/
-/*             <li class="disabled"><a href="#">Nya medlemar</a></li>*/
-/*             <li class="disabled"><a href="#">Skapa medlem</a></li>*/
+/*             {% if adminMenuNewUser == true %}<li><a href="{{ adminUrl }}users/newUser">Skapa användare</a></li>{% endif %}*/
 /*             {% if adminMenuGroups == true %}<li><a href="{{ siteUrl }}admin/groups">Grupper</a></li>{% endif %}*/
+/*             {% if adminMenuMatrikel == true %}<li><a href="{{ adminUrl }}matrikel">Matrikel</a></li>{% endif %}*/
 /*         </ul>*/
 /*         <ul class="nav nav-sidebar">*/
 /*             <li class="disabled"><a href="">Skapa nyhet</a></li>*/

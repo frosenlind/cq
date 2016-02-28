@@ -85,6 +85,7 @@ class Admin extends Admin_Controller{
                 $obj->groupid = $groupId;
 
                 $this->group_model->editCRUD($obj);
+                redirect(site_url('admin/group/'.$groupId), 'refresh');
             }
         }elseif($this->input->post('type') == 'search'){
             $this->form_validation->set_rules('input', 'Sökruta', 'required');

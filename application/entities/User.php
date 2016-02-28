@@ -14,6 +14,7 @@ class User{
     protected $username;
     protected $password;
     protected $email;
+    protected $onr;
     protected $created;
 
     /**
@@ -21,12 +22,14 @@ class User{
      */
     public function __construct($arrParameters)
     {
-        $this->id = $arrParameters->id;
+        $this->id = 0;
+        $this->created = 0;
+        if(isset($arrParameters->id)){$this->id = $arrParameters->id;}
         $this->username = $arrParameters->username;
         $this->password = $arrParameters->password;
         $this->email = $arrParameters->email;
-        $this->created = $arrParameters->created;
-
+        $this->onr = $arrParameters->onr;
+        if(isset($arrParameters->created)){$this->created = $arrParameters->created;}
     }
 
     /**
@@ -88,18 +91,29 @@ class User{
     /**
      * @return mixed
      */
+    public function getOnr()
+    {
+        return $this->onr;
+    }
+
+    /**
+     * @param mixed $onr
+     */
+    public function setOnr($onr)
+    {
+        $this->onr = $onr;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
     public function getCreated()
     {
         return $this->created;
     }
 
-    /**
-     * @param mixed $created
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    }
 
 
 

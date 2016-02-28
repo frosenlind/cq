@@ -1,0 +1,15 @@
+{% extends "templates/admin.twig" %}
+
+{% block mainContent %}
+    <h1 class="page-header">
+        {{ pageHeader }}
+    </h1>
+
+    <div class="col-sm-9 col-md-10 main">
+        <div class="col-md-12">
+            <h2>Klart</h2>
+            <p>Grattis, du uppdaterade {{ update_amount }} medlemmar och skapade {{ new_amount }} nya!</p>
+        </div>
+    </div>
+
+{% endblock mainContent %}
